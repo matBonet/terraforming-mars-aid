@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+    background-color: #21222A;
+    padding: 10px 20px;
+}
+
+.nav-bar > h3{
+    color: #61DAFB;
+    margin-right: auto;
+    font-family: 'Titillium Web', sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.nav-bar > h4 {
+    color: #DEEBF8;
+    font-family: 'Titillium Web', sans-serif;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.nav-bar-ma {
+    display: flex;
+    align-items: center;
+    background-color: #797c96;
+}
+
+.nav-bar-ma > h3 {
+    color: #DEEBF8;
+    margin: 2px auto 2px auto;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.body-ma {
+    height: 200px;
+    background-color: #FFFFFF;
+}
