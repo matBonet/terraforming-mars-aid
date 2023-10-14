@@ -7,11 +7,10 @@ function MilestonesAwards({ title, cards, orient }) {
 				<h3>{title.toUpperCase()}</h3>
 			</div>
 			<div className={"ma-cards-" + orient}>
-				<Card name='landlord'/>
-				<Card name='landlord'/>
-				<Card name='landlord'/>
-				<Card name='landlord'/>
-				<Card name='landlord'/>
+				{
+					cards.map((item, index)=>{
+						return <Card name={item} key={item}/>
+				})}
 			</div>
 		</div>
 	);

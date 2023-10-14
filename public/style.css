@@ -74,6 +74,7 @@ html, body, #root {
     display: flex;
     flex-direction: column;
     flex: 1;
+    align-items: stretch;
 }
 
 .ma-cards-v > .card-outer {
@@ -102,14 +103,15 @@ html, body, #root {
     margin: 10px 10px;
     padding: 5px;
     flex: 1;
-    box-shadow: 2px 4px 8px 2px rgba(0 , 0, 0, .5), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 1px 1px 8px 5px rgba( 0, 0, 0, .8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .card-inner {
     display: flex;
+    flex-direction: column;
     flex: 1;
     border-radius: 20px;
-    box-shadow: inset 0px 0px 8px 2px rgba(0 , 0, 0, .5);
+    box-shadow: inset 0px 0px 10px 5px rgba(0 , 0, 0, .7);
     background: linear-gradient(
         45deg,
         #aaa 5%,
@@ -123,17 +125,36 @@ html, body, #root {
 }
 
 .ma-logo {
-    margin: auto;
-    object-fit: scale-down;
+    flex: 1;
     min-height: 0;
     min-width: 0;
-    height: 90%;
-    width: 80%;
+    margin: auto;
+    object-fit: contain;
+}
 
-   /*  font-family: 'Titillium Web', sans-serif;
+.ma-cards-h>.card-outer>.card-inner>.ma-logo {
+    width: 80%;
+}
+
+.ma-cards-v>.card-outer>.card-inner>.ma-logo {
+    width: 80%;
+    max-height: calc(100vh/8);
+    margin: auto;
+}
+
+.ma-title {
+    flex: 0;
+    margin: auto;
+    font-family: 'Titillium Web', sans-serif;
     font-style: italic;
     font-weight: 800;
-    font-size: 1em;
+    font-size: max(1.7vh, 1.7vw);
     letter-spacing: 3px;
-    text-shadow: 0px 0px 4px black; */
+    text-align: center;
+    text-wrap: wrap;
+    text-shadow: 0px 0px 4px black;
+}
+
+.vspace {
+    flex: 1;
 }

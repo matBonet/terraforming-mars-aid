@@ -9,17 +9,17 @@ function App() {
     <div className='container'>
       <NavBar />
       {
-        size.width >= size.height &&
+        size.width >= 1.3*size.height &&
         <div className='body-ma-h'>
-          <MilestonesAwards title='milestones' orient='h'/>
-          <MilestonesAwards title='awards' orient='h'/>
+          <MilestonesAwards title='milestones' cards={['mayor', 'terraformer', 'geologist', 'investor', 'forester']} orient='h'/>
+          <MilestonesAwards title='awards' cards={['promoter', 'highlander', 'politician', 'celebrity', 'metallurgist']} orient='h'/>
         </div>
       }
       {
-        size.width < size.height &&
+        size.width < 1.3*size.height &&
         <div className='body-ma-v'>
-          <MilestonesAwards title='milestones' orient='v'/>
-          <MilestonesAwards title='awards' orient='v'/>
+          <MilestonesAwards title='milestones' cards={['mayor', 'terraformer', 'geologist', 'investor', 'forester']} orient='v'/>
+          <MilestonesAwards title='awards' cards={['promoter', 'highlander', 'politician', 'celebrity', 'metallurgist']} orient='v'/>
         </div>
       }
       
