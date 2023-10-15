@@ -1,12 +1,12 @@
-function Card({ name, description }) {
+function Card({ short, title, description }) {
   return (
     <div className="card-outer">
       <div className="card-inner">
         {/* <div className="vspace"></div> */}
         <img 
-          src={process.env.PUBLIC_URL + "/ma-icons/" + name + ".png"}
+          src={process.env.PUBLIC_URL + "/ma-icons/" + short + ".png"}
           className="ma-logo"
-          alt={name.toUpperCase()}
+          alt={title}
           onError={ ({ currentTarget }) => {
             currentTarget.onerror = null;
             currentTarget.className = "ma-title";

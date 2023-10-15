@@ -25,9 +25,7 @@ var picked_awards = pickRandomItems(awards, 5)
 
 function App() {
   const size = useWindowSize();
-
   
-
   return (
     <div className='container'>
       <NavBar />

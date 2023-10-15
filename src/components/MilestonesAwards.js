@@ -10,8 +10,8 @@ function MilestonesAwards({ type, cards, orient }) {
 				{
 					Object.keys(cards).map( function(key, index) {
 						return <Card 
-							name={cards[key].name.toUpperCase()} 
-							key={key}
+							short={key}
+							title={cards[key].name.toUpperCase()}
 							description={cards[key].description}
 						/>;
 					})}
