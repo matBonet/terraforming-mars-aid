@@ -1,0 +1,212 @@
+{
+    "briber": {
+        "name": "Briber",
+        "official": true,
+        "source": "",
+        "description": "To get this milestone, pay 12 M€, in addition to the normal claim cost of 8 M€ (so, 20 M€ total)"
+    },
+    "builder": {
+        "name": "Builder",
+        "official": true,
+        "source": "",
+        "description": "7 building tags"
+    },
+    "coastguard": {
+        "name": "Coastguard",
+        "official": true,
+        "source": "",
+        "description": "3 tiles adjacent to ocean"
+    },
+    "diversifier": {
+        "name": "Diversifier",
+        "official": true,
+        "source": "",
+        "description": "8 different tags"
+    },
+    "ecologist": {
+        "name": "Ecologist",
+        "official": true,
+        "source": "",
+        "description": "4 microbe tags"
+    },
+    "energizer": {
+        "name": "Energizer",
+        "official": true,
+        "source": "",
+        "description": "6 energy production"
+    },
+    "engineer": {
+        "name": "Engineer",
+        "official": true,
+        "source": "",
+        "description": "10 energy and heat production combined"
+    },
+    "farmer": {
+        "name": "Farmer",
+        "official": true,
+        "source": "",
+        "description": "5 animal and microbe resources combined"
+    },
+    "filantrope": {
+        "name": "Filantrope",
+        "official": true,
+        "source": "",
+        "description": "5 cards with non-negative VP. (Cards that count 1 VP per 2 microbes or other such cards also count.)"
+    },
+    "forester": {
+        "name": "Forester",
+        "official": true,
+        "source": "",
+        "description": "3 plant production"
+    },
+    "fundraiser": {
+        "name": "Fundraiser",
+        "official": true,
+        "source": "",
+        "description": "12 M€ production"
+    },
+    "gardener": {
+        "name": "Gardener",
+        "official": true,
+        "source": "",
+        "description": "3 greeneries"
+    },
+    "generalist": {
+        "name": "Generalist",
+        "official": true,
+        "source": "",
+        "description": "Having at least 1 production of each resource. (If you play without the Corporate Era, you need 2 production of each resource instead.)"
+    },
+    "geologist": {
+        "name": "Geologist",
+        "official": true,
+        "source": "",
+        "description": "3 tiles on, or adjacent to, volcanic areas (marked with bold text on the maps). If playing with a map without volcanic areas, replace this milestone."
+    },
+    "hydrologist": {
+        "name": "Hydrologist",
+        "official": true,
+        "source": "",
+        "description": "Having placed 4 oceans. (Place owner markers on each ocean until claimed. This owner marker does not make the ocean tile yours, though.)"
+    },
+    "landshaper": {
+        "name": "Landshaper",
+        "official": true,
+        "source": "",
+        "description": "1 city, 1 greenery, and 1 special tile"
+    },
+    "legend": {
+        "name": "Legend",
+        "official": true,
+        "source": "",
+        "description": "Having played at least 4 event cards"
+    },
+    "lobbyist": {
+        "name": "Lobbyist",
+        "official": true,
+        "source": "",
+        "description": "Having all your 7 delegates in parties (Party Leaders and Chairman also count)"
+    },
+    "mayor": {
+        "name": "Mayor",
+        "official": true,
+        "source": "",
+        "description": "3 cities"
+    },
+    "merchant": {
+        "name": "Merchant",
+        "official": true,
+        "source": "",
+        "description": "Having 2 of each standard resource after paying the claim cost"
+    },
+    "metallurgist": {
+        "name": "Metallurgist",
+        "official": true,
+        "source": "",
+        "description": "6 steel and titanium production combined"
+    },
+    "pioneer": {
+        "name": "Pioneer",
+        "official": true,
+        "source": "",
+        "description": "4 colonies"
+    },
+    "planetologist": {
+        "name": "Planetologist",
+        "official": true,
+        "source": "",
+        "description": "2 Earth tags, 2 Venus tags, and 2 Jovian tags"
+    },
+    "planner": {
+        "name": "Planner",
+        "official": true,
+        "source": "",
+        "description": "Having 16 cards in hand"
+    },
+    "producer": {
+        "name": "Producer",
+        "official": true,
+        "source": "",
+        "description": "Combined total production of at least 16. Not all types need to be represented, and negative M€ production subtracts from the total"
+    },
+    "researcher": {
+        "name": "Researcher",
+        "official": true,
+        "source": "",
+        "description": "4 science tags"
+    },
+    "rim_settler": {
+        "name": "Rim settler",
+        "official": true,
+        "source": "",
+        "description": "3 Jovian tags"
+    },
+    "spacefarer": {
+        "name": "Spacefarer",
+        "official": true,
+        "source": "",
+        "description": "4 space tags"
+    },
+    "sponsor": {
+        "name": "Sponsor",
+        "official": true,
+        "source": "",
+        "description": "3 cards that have a cost of 20 M€ or more"
+    },
+    "tactician": {
+        "name": "Tactician",
+        "official": true,
+        "source": "",
+        "description": "4 cards with requirements"
+    },
+    "terraformer": {
+        "name": "Terraformer",
+        "official": true,
+        "source": "",
+        "description": "29 TR"
+    },
+    "terran": {
+        "name": "Terran",
+        "official": true,
+        "source": "",
+        "description": "5 Earth tags"
+    },
+    "thawer": {
+        "name": "Thawer",
+        "official": true,
+        "source": "",
+        "description": "Having raised temperature 5 times. (Mark with your player marker on the temperature track each time you raise temperature until claimed)"
+    },
+    "trader": {
+        "name": "Trader",
+        "official": true,
+        "source": "",
+        "description": "3 different types of resources on cards"
+    },
+    "tycoon": {
+        "name": "Tycoon",
+        "official": true,
+        "source": "",
+        "description": "10 blue and green cards"
+    }
+}

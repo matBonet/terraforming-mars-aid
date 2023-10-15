@@ -1,16 +1,20 @@
 import Card from './Card'
 
-function MilestonesAwards({ title, cards, orient }) {
+function MilestonesAwards({ type, cards, orient }) {
 	return (
 		<div className={'ma-group-'+orient}>
 			<div className="nav-bar-ma">
-				<h3>{title.toUpperCase()}</h3>
+				<h3>{type.toUpperCase()}</h3>
 			</div>
-			<div className={"ma-cards-" + orient}>
+			<div className={"ma-cards-" + orient}>				
 				{
-					cards.map((item, index)=>{
-						return <Card name={item} key={item}/>
-				})}
+					Object.keys(cards).map( function(key, index) {
+						return <Card 
+							name={cards[key].name.toUpperCase()} 
+							key={key}
+							description={cards[key].description}
+						/>;
+					})}
 			</div>
 		</div>
 	);

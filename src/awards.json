@@ -1,0 +1,212 @@
+{
+    "administrator": {
+        "name": "Administrator",
+        "official": true,
+        "source": "",
+        "description": "Most cards with no tags (don't forget the corporation and Prelude cards)"
+    },
+    "banker": {
+        "name": "Banker",
+        "official": true,
+        "source": "",
+        "description": "Highest M€ production"
+    },
+    "benefactor": {
+        "name": "Benefactor",
+        "official": true,
+        "source": "",
+        "description": "Highest TR. If you play with this Award, count it before all other Awards and Milestones!"
+    },
+    "biologist": {
+        "name": "Biologist",
+        "official": true,
+        "source": "",
+        "description": "Most bio tags combined (plant, microbe, and animal)"
+    },
+    "botanist": {
+        "name": "Botanist",
+        "official": true,
+        "source": "",
+        "description": "Highest plant production"
+    },
+    "celebrity": {
+        "name": "Celebrity",
+        "official": true,
+        "source": "",
+        "description": "Most cards that have a cost of 20 M€ or more"
+    },
+    "collector": {
+        "name": "Collector",
+        "official": true,
+        "source": "",
+        "description": "Most different types of resources, both on your player board and on your cards"
+    },
+    "constructor": {
+        "name": "Constructor",
+        "official": true,
+        "source": "",
+        "description": "Most colonies and cities combined"
+    },
+    "contractor": {
+        "name": "Contractor",
+        "official": true,
+        "source": "",
+        "description": "Most building tags"
+    },
+    "cultivator": {
+        "name": "Cultivator",
+        "official": true,
+        "source": "",
+        "description": "Most greeneries"
+    },
+    "electrician": {
+        "name": "Electrician",
+        "official": true,
+        "source": "",
+        "description": "Most power tags"
+    },
+    "estate_dealer": {
+        "name": "Estate Dealer",
+        "official": true,
+        "source": "",
+        "description": "Most tiles next to ocean"
+    },
+    "excentric": {
+        "name": "Excentric",
+        "official": true,
+        "source": "",
+        "description": "Most resources on cards"
+    },
+    "forecaster": {
+        "name": "Forecaster",
+        "official": true,
+        "source": "",
+        "description": "Most cards with requirements"
+    },
+    "founder": {
+        "name": "Founder",
+        "official": true,
+        "source": "",
+        "description": "Most tiles adjacent to special tiles"
+    },
+    "highlander": {
+        "name": "Highlander",
+        "official": true,
+        "source": "",
+        "description": "Most tiles that are not adjacent to ocean"
+    },
+    "incorporator": {
+        "name": "Incorporator",
+        "official": true,
+        "source": "",
+        "description": "Most cards costing 10 M€ or less"
+    },
+    "investor": {
+        "name": "Investor",
+        "official": true,
+        "source": "",
+        "description": "Most Earth tags"
+    },
+    "landlord": {
+        "name": "Landlord",
+        "official": true,
+        "source": "",
+        "description": "Most tiles"
+    },
+    "landscaper": {
+        "name": "Landscaper",
+        "official": true,
+        "source": "",
+        "description": "Most tiles connected together (each player counts his/her largest group of tiles)"
+    },
+    "magnate": {
+        "name": "Magnate",
+        "official": true,
+        "source": "",
+        "description": "Most green cards"
+    },
+    "manufacturer": {
+        "name": "Manufacturer",
+        "official": true,
+        "source": "",
+        "description": "Highest production of steel and heat combined"
+    },
+    "metropolist": {
+        "name": "Metropolist",
+        "official": true,
+        "source": "",
+        "description": "Most cities"
+    },
+    "miner": {
+        "name": "Miner",
+        "official": true,
+        "source": "",
+        "description": "Having most steel and titanium resources combined"
+    },
+    "mogul": {
+        "name": "Mogul",
+        "official": true,
+        "source": "",
+        "description": "Highest production of steel, titanium, plants, energy, and heat combined (all except M€ production)"
+    },
+    "politician": {
+        "name": "Politician",
+        "official": true,
+        "source": "",
+        "description": "Most Party Leaders and influence combined"
+    },
+    "promoter": {
+        "name": "Promoter",
+        "official": true,
+        "source": "",
+        "description": "Most cards in your event pile"
+    },
+    "scientist": {
+        "name": "Scientist",
+        "official": true,
+        "source": "",
+        "description": "Most science tags"
+    },
+    "space_baron": {
+        "name": "Space Baron",
+        "official": true,
+        "source": "",
+        "description": "Most space tags"
+    },
+    "suburbian": {
+        "name": "Suburbian",
+        "official": true,
+        "source": "",
+        "description": "Most tiles on areas along the edges of the map"
+    },
+    "supplier": {
+        "name": "Supplier",
+        "official": true,
+        "source": "",
+        "description": "Having most steel and energy resources combined"
+    },
+    "thermalist": {
+        "name": "Thermalist",
+        "official": true,
+        "source": "",
+        "description": "Having most heat resources"
+    },
+    "traveller": {
+        "name": "Traveller",
+        "official": true,
+        "source": "",
+        "description": "Most Jovian and Earth tags combined"
+    },
+    "visionary": {
+        "name": "Visionary",
+        "official": true,
+        "source": "",
+        "description": "Most cards in hand"
+    },
+    "zoologist": {
+        "name": "Zoologist",
+        "official": true,
+        "source": "",
+        "description": "Having most animal and microbe resources combined"
+    }
+}
