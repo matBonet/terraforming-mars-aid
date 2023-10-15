@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/terraforming-mars-aid/static/js/main.71f5ef1c.js",
+    "main.js": "/terraforming-mars-aid/static/js/main.51817cec.js",
     "static/js/787.0c394343.chunk.js": "/terraforming-mars-aid/static/js/787.0c394343.chunk.js",
     "index.html": "/terraforming-mars-aid/index.html",
-    "main.71f5ef1c.js.map": "/terraforming-mars-aid/static/js/main.71f5ef1c.js.map",
+    "main.51817cec.js.map": "/terraforming-mars-aid/static/js/main.51817cec.js.map",
     "787.0c394343.chunk.js.map": "/terraforming-mars-aid/static/js/787.0c394343.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.71f5ef1c.js"
+    "static/js/main.51817cec.js"
   ]
 }
