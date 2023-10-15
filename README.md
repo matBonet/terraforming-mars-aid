@@ -1,5 +1,14 @@
+
 # terraforming-mars-aid
 
-Set of tools for assisting your terraforming mars game!
+Click the link below to randomize milestones and awards according to your expansions!
 
-[WIP Demo](https://matbonet.github.io/terraforming-mars-aid/)
+[Base game](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,pioneer,planetologist&exclude_awards=politician)
+[Venus Next](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,pioneer&exclude_awards=politician)
+[Colonies](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,planetologist&exclude_awards=politician)
+[Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=pioneer,planetologist)
+[Venus Next + Colonies](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist&exclude_awards=politician)
+[Venus Next + Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=pioneer)
+[Colonies + Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=planetologist)
+
+<sub>\* Feel free to customize the url parameters to better adjust the randomization to your desires!</sub>

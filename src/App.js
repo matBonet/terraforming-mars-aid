@@ -6,19 +6,17 @@ import generateMilestonesAwards from './randomizer';
 import awardsData from './ma-data/awards.json'
 import milestonesData from './ma-data/milestones.json'
 
-var draw = generateMilestonesAwards(null, null, 6, 35);
-
-function getProperties(obj, arr) {
-  return arr.reduce((result, prop) => (obj.hasOwnProperty(prop) ? { ...result, [prop]: obj[prop] } : result), {});
-}
-
-console.log(getProperties(milestonesData, draw.milestones));
-
 const queryParameters = new URLSearchParams(window.location.search)
 const excludeMilestones = (queryParameters.get("exclude_milestones") || "").split(',');
 const excludeAwards = (queryParameters.get("exclude_awards") || "").split(',');
 const max_pair_synergy = parseInt(queryParameters.get("max_pair_synergy") || 6);
 const max_total_synergy = parseInt(queryParameters.get("max_total_synergy") || 30) ;
+
+var draw = generateMilestonesAwards(excludeMilestones, excludeAwards, max_pair_synergy, max_total_synergy);
+
+function getProperties(obj, arr) {
+  return arr.reduce((result, prop) => (obj.hasOwnProperty(prop) ? { ...result, [prop]: obj[prop] } : result), {});
+}
 
 function App() {
   const size = useWindowSize();

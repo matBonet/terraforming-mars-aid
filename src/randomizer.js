@@ -32,8 +32,8 @@ function getSynergy(ma1, ma2, synergyMatrix) {
 
 function generateMilestonesAwards(excludedMilestones, excludedAwards, maxIndividualSynergy, maxTotalSynergy) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  excludedMilestones = excludedMilestones || new Set();
-  excludedAwards = excludedAwards || new Set();
+  excludedMilestones = new Set(excludedMilestones) || new Set();
+  excludedAwards = new Set(excludedAwards) || new Set();
 
   const milestonesNames = new Set(Object.keys(milestonesData));
   const awardsNames = new Set(Object.keys(awardsData));
