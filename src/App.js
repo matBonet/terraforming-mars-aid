@@ -1,27 +1,18 @@
 import { useWindowSize } from '@uidotdev/usehooks';
 import NavBar from './components/NavBar'
 import MilestonesAwards from './components/MilestonesAwards'
-import milestones from './milestones.json'
-import awards from './awards.json'
 
+import generateMilestonesAwards from './randomizer';
+import awardsData from './ma-data/awards.json'
+import milestonesData from './ma-data/milestones.json'
 
-function pickRandomItems( obj, n ) {    
-  var keys = Object.keys(obj)
-  var selected_arr = [];
-  var cards = {}
+var draw = generateMilestonesAwards(null, null, 6, 35);
 
-  while (selected_arr.length < n) {
-    var rand = Math.floor(Math.random() * keys.length);
-    var key = keys[rand];
-    selected_arr.push(key);
-    cards[key] = obj[key]
-    keys.splice(rand, 1);
-  }
-  return cards;
-};
+function getProperties(obj, arr) {
+  return arr.reduce((result, prop) => (obj.hasOwnProperty(prop) ? { ...result, [prop]: obj[prop] } : result), {});
+}
 
-var picked_milestones = pickRandomItems(milestones, 5)
-var picked_awards = pickRandomItems(awards, 5)
+console.log(getProperties(milestonesData, draw.milestones));
 
 const queryParameters = new URLSearchParams(window.location.search)
 const excludeMilestones = (queryParameters.get("exclude_milestones") || "").split(',');
@@ -37,15 +28,15 @@ function App() {
       {
         size.width >= 1.3*size.height &&
         <div className='body-ma-h'>
-          <MilestonesAwards type='milestones' cards={picked_milestones} orient='h'/>
-          <MilestonesAwards type='awards' cards={picked_awards} orient='h'/>
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h'/>
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h'/>
         </div>
       }
       {
         size.width < 1.3*size.height &&
         <div className='body-ma-v'>
-          <MilestonesAwards type='milestones' cards={picked_milestones} orient='v'/>
-          <MilestonesAwards type='awards' cards={picked_awards} orient='v'/>
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v'/>
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v'/>
         </div>
       }
       
