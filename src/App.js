@@ -23,9 +23,14 @@ function pickRandomItems( obj, n ) {
 var picked_milestones = pickRandomItems(milestones, 5)
 var picked_awards = pickRandomItems(awards, 5)
 
+const queryParameters = new URLSearchParams(window.location.search)
+const excludeMilestones = (queryParameters.get("exclude_milestones") || "").split(',');
+const excludeAwards = (queryParameters.get("exclude_awards") || "").split(',');
+const max_pair_synergy = parseInt(queryParameters.get("max_pair_synergy") || 6);
+const max_total_synergy = parseInt(queryParameters.get("max_total_synergy") || 30) ;
+
 function App() {
   const size = useWindowSize();
-  
   return (
     <div className='container'>
       <NavBar />
