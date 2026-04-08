@@ -218,16 +218,32 @@ html, body, #root {
     margin-top: 0;
 }
 
-.modal-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.toggle-btn {
+    display: block;
+    width: 100%;
+    text-align: left;
     margin: 4px 0;
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 2px solid transparent;
     cursor: pointer;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.9rem;
+    transition: filter 0.15s;
 }
 
-.modal-done-btn {
-    margin-top: 20px;
-    margin-left: 0;
-    padding: 8px 24px;
+.toggle-btn--on {
+    background: rgba(60, 180, 80, 0.2);
+    border-color: #3cb450;
+    color: #b8f0be;
+}
+
+.toggle-btn--off {
+    background: rgba(200, 60, 60, 0.2);
+    border-color: #c83c3c;
+    color: #f0b8b8;
+}
+
+.toggle-btn:hover {
+    filter: brightness(1.25);
 }

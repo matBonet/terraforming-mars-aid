@@ -41,11 +41,19 @@ function App() {
     setDraw(generateMilestonesAwards(exclM, exclA, initialMaxPairSynergy, initialMaxTotalSynergy));
   }
 
-  function handleSettingsClose(newExclM, newExclA) {
+  function handleSettingsChange(newExclM, newExclA) {
     setExcludeMilestones(newExclM);
     setExcludeAwards(newExclA);
     syncURL(newExclM, newExclA);
-    rerandomize(newExclM, newExclA);
+    const exclMSet = new Set(newExclM);
+    const exclASet = new Set(newExclA);
+    const affectsDraw =
+      draw.milestones.some(slug => exclMSet.has(slug)) ||
+      draw.awards.some(slug => exclASet.has(slug));
+    if (affectsDraw) rerandomize(newExclM, newExclA);
+  }
+
+  function handleSettingsClose() {
     setSettingsOpen(false);
   }
 
@@ -73,6 +81,7 @@ function App() {
         <SettingsModal
           excludeMilestones={excludeMilestones}
           excludeAwards={excludeAwards}
+          onChange={handleSettingsChange}
           onClose={handleSettingsClose}
         />
       )}
