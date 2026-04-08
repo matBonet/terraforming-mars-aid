@@ -166,3 +166,68 @@ html, body, #root {
 .vspace {
     flex: 1;
 }
+
+/* Nav buttons */
+.nav-btn {
+    background: #515368;
+    color: #DEEBF8;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.9rem;
+}
+.nav-btn:hover { background: #6b6e8a; }
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #21222A;
+    color: #DEEBF8;
+    border-radius: 12px;
+    padding: 24px;
+    max-height: 80vh;
+    overflow-y: auto;
+    min-width: 340px;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.modal-content h2 {
+    color: #61DAFB;
+    margin-top: 0;
+}
+
+.modal-sections {
+    display: flex;
+    gap: 32px;
+}
+
+.modal-section h3 {
+    color: #61DAFB;
+    margin-top: 0;
+}
+
+.modal-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 4px 0;
+    cursor: pointer;
+}
+
+.modal-done-btn {
+    margin-top: 20px;
+    margin-left: 0;
+    padding: 8px 24px;
+}
