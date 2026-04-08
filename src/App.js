@@ -4,7 +4,7 @@ import NavBar from './components/NavBar';
 import MilestonesAwards from './components/MilestonesAwards';
 import SettingsModal from './components/SettingsModal';
 
-import generateMilestonesAwards from './randomizer';
+import generateMilestonesAwards, { generateMilestonesOnly, generateAwardsOnly, generateSingleMilestone, generateSingleAward } from './randomizer';
 import awardsData from './ma-data/awards.json';
 import milestonesData from './ma-data/milestones.json';
 
@@ -41,6 +41,36 @@ function App() {
     setDraw(generateMilestonesAwards(exclM, exclA, initialMaxPairSynergy, initialMaxTotalSynergy));
   }
 
+  function rerandomizeMilestones() {
+    setDraw(prev => generateMilestonesOnly(excludeMilestones, prev.awards, initialMaxPairSynergy, initialMaxTotalSynergy));
+  }
+
+  function rerandomizeAwards() {
+    setDraw(prev => generateAwardsOnly(excludeAwards, prev.milestones, initialMaxPairSynergy, initialMaxTotalSynergy));
+  }
+
+  function removeMilestone(slug) {
+    const newExclM = [...excludeMilestones, slug];
+    setExcludeMilestones(newExclM);
+    syncURL(newExclM, excludeAwards);
+    setDraw(prev => {
+      const remaining = prev.milestones.filter(m => m !== slug);
+      const replacement = generateSingleMilestone(newExclM, remaining, prev.awards, initialMaxPairSynergy);
+      return { ...prev, milestones: [...remaining, replacement] };
+    });
+  }
+
+  function removeAward(slug) {
+    const newExclA = [...excludeAwards, slug];
+    setExcludeAwards(newExclA);
+    syncURL(excludeMilestones, newExclA);
+    setDraw(prev => {
+      const remaining = prev.awards.filter(a => a !== slug);
+      const replacement = generateSingleAward(newExclA, prev.milestones, remaining, initialMaxPairSynergy);
+      return { ...prev, awards: [...remaining, replacement] };
+    });
+  }
+
   function handleSettingsChange(newExclM, newExclA) {
     setExcludeMilestones(newExclM);
     setExcludeAwards(newExclA);
@@ -66,15 +96,15 @@ function App() {
       {
         size.width >= 1.3 * size.height &&
         <div className='body-ma-h'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' onRerandomize={rerandomizeAwards} onRemove={removeAward} />
         </div>
       }
       {
         size.width < 1.3 * size.height &&
         <div className='body-ma-v'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' onRerandomize={rerandomizeAwards} onRemove={removeAward} />
         </div>
       }
       {settingsOpen && (
