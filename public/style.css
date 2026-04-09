@@ -390,6 +390,18 @@ html, body, #root {
     background: #21222A;
 }
 
+.modal-pill-ok {
+    color: #4caf50;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
+.modal-pill-err {
+    color: #e57373;
+    font-weight: bold;
+    margin-left: 6px;
+}
+
 .modal-section-actions {
     display: flex;
     gap: 6px;

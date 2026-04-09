@@ -1,4 +1,4 @@
-import useStore from '../store';
+import useStore, { REQUIRED } from '../store';
 import milestonesData from '../ma-data/milestones.json';
 import awardsData from '../ma-data/awards.json';
 
@@ -7,9 +7,15 @@ const allAwardSlugs = Object.keys(awardsData);
 
 function SettingsModal({ onClose }) {
   const {
-    availableMilestones, availableAwards, showDescriptions,
+    availableMilestones, availableAwards, error, showDescriptions,
     setAvailable, setShowDescriptions,
   } = useStore();
+
+  const tooFewMilestones = availableMilestones.length < REQUIRED;
+  const tooFewAwards = availableAwards.length < REQUIRED;
+  const synergyError = !!error && !tooFewMilestones && !tooFewAwards;
+  const milestoneOk = !tooFewMilestones && !synergyError;
+  const awardOk = !tooFewAwards && !synergyError;
 
   const availMSet = new Set(availableMilestones);
   const availASet = new Set(availableAwards);
@@ -52,7 +58,10 @@ function SettingsModal({ onClose }) {
           </div>
           <div className="modal-section">
             <div className="modal-section-header">
-              <div className="nav-bar-ma-pill modal-pill"><span>MILESTONES</span></div>
+              <div className="nav-bar-ma-pill modal-pill">
+                <span>MILESTONES</span>
+                <span className={milestoneOk ? 'modal-pill-ok' : 'modal-pill-err'}>{milestoneOk ? '✓' : '✕'}</span>
+              </div>
               <div className="modal-section-actions">
                 <button className="modal-action-btn" onClick={() => setAvailable(allMilestoneSlugs, availableAwards)}>Select all</button>
                 <button className="modal-action-btn" onClick={() => setAvailable([], availableAwards)}>Unselect all</button>
@@ -73,7 +82,10 @@ function SettingsModal({ onClose }) {
           </div>
           <div className="modal-section">
             <div className="modal-section-header">
-              <div className="nav-bar-ma-pill modal-pill"><span>AWARDS</span></div>
+              <div className="nav-bar-ma-pill modal-pill">
+                <span>AWARDS</span>
+                <span className={awardOk ? 'modal-pill-ok' : 'modal-pill-err'}>{awardOk ? '✓' : '✕'}</span>
+              </div>
               <div className="modal-section-actions">
                 <button className="modal-action-btn" onClick={() => setAvailable(availableMilestones, allAwardSlugs)}>Select all</button>
                 <button className="modal-action-btn" onClick={() => setAvailable(availableMilestones, [])}>Unselect all</button>

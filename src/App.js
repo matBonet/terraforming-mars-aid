@@ -19,8 +19,9 @@ function App() {
 
   const enoughMilestones = availableMilestones.length >= REQUIRED;
   const enoughAwards = availableAwards.length >= REQUIRED;
-  const milestoneError = error && error.toLowerCase().includes('milestone') ? error : null;
-  const awardError = error && error.toLowerCase().includes('award') ? error : null;
+  const synergyError = error && enoughMilestones && enoughAwards
+    ? 'Not enough synergy-compatible options — try enabling more milestones or awards in Settings.'
+    : null;
 
   const milestoneCards = getProperties(milestonesData, draw.milestones);
   const awardCards = getProperties(awardsData, draw.awards);
@@ -34,8 +35,8 @@ function App() {
         onOpenSettings={() => setSettingsOpen(true)}
       />
       <div className={isHorizontal ? 'body-ma-h' : 'body-ma-v'}>
-        <MilestonesAwards type='milestones' cards={milestoneCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughMilestones} warning={milestoneError} />
-        <MilestonesAwards type='awards' cards={awardCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughAwards} warning={awardError} />
+        <MilestonesAwards type='milestones' cards={milestoneCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughMilestones} warning={synergyError} />
+        <MilestonesAwards type='awards' cards={awardCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughAwards} warning={synergyError} />
       </div>
       {settingsOpen && (
         <SettingsModal onClose={() => setSettingsOpen(false)} />

@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 import {
   generateMilestonesAwards, generateMilestonesOnly, generateAwardsOnly, selectMilestone, selectAward,
 } from './randomizer';
@@ -11,7 +12,7 @@ export const allAwardSlugs = Object.keys(awardsData);
 
 const MAX_PAIR_SYNERGY = 6;
 
-const useStore = create((set, get) => ({
+const useStore = create(persist((set, get) => ({
   availableMilestones: allMilestoneSlugs,
   availableAwards: allAwardSlugs,
   draw: generateMilestonesAwards(allMilestoneSlugs, allAwardSlugs, MAX_PAIR_SYNERGY),
@@ -142,6 +143,29 @@ const useStore = create((set, get) => ({
   },
 
   setShowDescriptions: (value) => set({ showDescriptions: value }),
+}), {
+  name: 'tma-store',
+  version: 1,
+  partialize: (state) => ({
+    availableMilestones: state.availableMilestones,
+    availableAwards: state.availableAwards,
+    draw: state.draw,
+    showDescriptions: state.showDescriptions,
+  }),
+  migrate: (persisted, _version) => {
+    // Filter out any slugs that no longer exist in the current data files
+    const mSet = new Set(allMilestoneSlugs);
+    const aSet = new Set(allAwardSlugs);
+    return {
+      ...persisted,
+      availableMilestones: (persisted.availableMilestones || []).filter(s => mSet.has(s)),
+      availableAwards: (persisted.availableAwards || []).filter(s => aSet.has(s)),
+      draw: {
+        milestones: (persisted.draw?.milestones || []).filter(s => mSet.has(s)),
+        awards: (persisted.draw?.awards || []).filter(s => aSet.has(s)),
+      },
+    };
+  },
 }));
 
 export default useStore;
