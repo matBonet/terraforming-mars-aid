@@ -66,6 +66,28 @@ function App() {
     setDraw(prev => generateAwardsOnly(excludeAwards, prev.milestones, initialMaxPairSynergy, initialMaxTotalSynergy));
   }
 
+  function rerollMilestone(slug) {
+    setDraw(prev => {
+      const idx = prev.milestones.indexOf(slug);
+      const remaining = prev.milestones.filter(m => m !== slug);
+      const replacement = generateSingleMilestone(excludeMilestones, remaining, prev.awards, initialMaxPairSynergy);
+      const next = [...remaining];
+      next.splice(idx, 0, replacement);
+      return { ...prev, milestones: next };
+    });
+  }
+
+  function rerollAward(slug) {
+    setDraw(prev => {
+      const idx = prev.awards.indexOf(slug);
+      const remaining = prev.awards.filter(a => a !== slug);
+      const replacement = generateSingleAward(excludeAwards, prev.milestones, remaining, initialMaxPairSynergy);
+      const next = [...remaining];
+      next.splice(idx, 0, replacement);
+      return { ...prev, awards: next };
+    });
+  }
+
   function removeMilestone(slug) {
     const newExclM = [...excludeMilestones, slug];
     setExcludeMilestones(newExclM);
@@ -145,15 +167,15 @@ function App() {
       {
         size.width >= 1.3 * size.height &&
         <div className='body-ma-h'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} tooFew={!enoughMilestones} />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' onRerandomize={rerandomizeAwards} onRemove={removeAward} tooFew={!enoughAwards} />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} />
         </div>
       }
       {
         size.width < 1.3 * size.height &&
         <div className='body-ma-v'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} tooFew={!enoughMilestones} />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' onRerandomize={rerandomizeAwards} onRemove={removeAward} tooFew={!enoughAwards} />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} />
         </div>
       }
       {settingsOpen && (
