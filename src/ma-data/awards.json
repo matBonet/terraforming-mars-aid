@@ -179,11 +179,11 @@
         "source": "",
         "description": "Most tiles on areas along the edges of the map"
     },
-    "supplier": {
-        "name": "Supplier",
+    "industrialist": {
+        "name": "Industrialist",
         "official": true,
         "source": "",
-        "description": "Having most steel and energy resources combined"
+        "description": "Most steel and energy resources combined"
     },
     "thermalist": {
         "name": "Thermalist",

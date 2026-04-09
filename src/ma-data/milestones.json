@@ -27,7 +27,7 @@
         "name": "Ecologist",
         "official": true,
         "source": "",
-        "description": "4 microbe tags"
+        "description": "4 bio tags"
     },
     "energizer": {
         "name": "Energizer",
@@ -47,11 +47,11 @@
         "source": "",
         "description": "5 animal and microbe resources combined"
     },
-    "filantrope": {
-        "name": "Filantrope",
+    "philantropist": {
+        "name": "Philantropist",
         "official": true,
         "source": "",
-        "description": "5 cards with non-negative VP. (Cards that count 1 VP per 2 microbes or other such cards also count.)"
+        "description": "5 cards with non-negative VP. (Cards that count 1 VP per 2 microbes or similar cards also count.)"
     },
     "forester": {
         "name": "Forester",
@@ -202,11 +202,5 @@
         "official": true,
         "source": "",
         "description": "3 different types of resources on cards"
-    },
-    "tycoon": {
-        "name": "Tycoon",
-        "official": true,
-        "source": "",
-        "description": "10 blue and green cards"
     }
 }
