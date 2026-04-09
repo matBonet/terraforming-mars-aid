@@ -1,6 +1,6 @@
 import Card from './Card'
 
-function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, onReroll, tooFew }) {
+function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, onReroll, tooFew, showDescriptions }) {
 	return (
 		<div className={'ma-group-'+orient}>
 			<div className="nav-bar-ma">
@@ -28,6 +28,7 @@ function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, onRero
 							description={cards[key].description}
 							onRemove={() => onRemove(key)}
 							onReroll={() => onReroll(key)}
+							showDescriptions={showDescriptions}
 						/>;
 					})}
 				</div>

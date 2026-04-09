@@ -10,7 +10,7 @@ const ICON_SLUGS = new Set([
   'tycoon', 'venuphile', 'zoologist',
 ]);
 
-function Card({ short, title, description, onRemove, onReroll }) {
+function Card({ short, title, description, onRemove, onReroll, showDescriptions }) {
   return (
     <div className="card-outer">
       <button className="card-reroll-btn" onClick={onReroll} title="Re-roll">&#x21BB;</button>
@@ -20,7 +20,7 @@ function Card({ short, title, description, onRemove, onReroll }) {
           ? <img src={process.env.PUBLIC_URL + "/ma-icons/" + short + ".png"} className="ma-logo" alt="" />
           : <p className="ma-title">{title}</p>
         }
-        <p className="ma-description">{description}</p>
+        {showDescriptions && <p className="ma-description">{description}</p>}
       </div>
     </div>
   )

@@ -5,7 +5,7 @@ import awardsData from '../ma-data/awards.json';
 const allMilestoneSlugs = Object.keys(milestonesData);
 const allAwardSlugs = Object.keys(awardsData);
 
-function SettingsModal({ excludeMilestones, excludeAwards, onChange, onClose }) {
+function SettingsModal({ excludeMilestones, excludeAwards, showDescriptions, onChange, onShowDescriptionsChange, onClose }) {
   const [localExclM, setLocalExclM] = useState(new Set(excludeMilestones));
   const [localExclA, setLocalExclA] = useState(new Set(excludeAwards));
 
@@ -69,6 +69,20 @@ function SettingsModal({ excludeMilestones, excludeAwards, onChange, onClose }) 
           <button className="modal-close-btn" onClick={onClose} title="Close">&#x2715;</button>
         </div>
         <div className="modal-sections">
+          <div className="modal-section">
+            <div className="modal-section-header">
+              <div className="nav-bar-ma-pill modal-pill"><span>GENERAL</span></div>
+            </div>
+            <div className="modal-section-items">
+              <button
+                className={`settings-toggle ${showDescriptions ? 'settings-toggle--on' : 'settings-toggle--off'}`}
+                onClick={() => onShowDescriptionsChange(!showDescriptions)}
+              >
+                <span className="settings-toggle-dot" />
+                Card descriptions
+              </button>
+            </div>
+          </div>
           <div className="modal-section">
             <div className="modal-section-header">
               <div className="nav-bar-ma-pill modal-pill">

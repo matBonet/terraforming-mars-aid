@@ -460,6 +460,44 @@ html, body, #root {
     transform: translateY(-2px);
 }
 
+/* General settings radio toggles */
+.settings-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.85rem;
+    color: #DEEBF8;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background 0.15s;
+}
+
+.settings-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.settings-toggle-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid rgba(222, 235, 248, 0.4);
+    flex-shrink: 0;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.settings-toggle--on .settings-toggle-dot {
+    background: #61DAFB;
+    border-color: #61DAFB;
+}
+
+.settings-toggle--off .settings-toggle-dot {
+    background: transparent;
+}
+
 /* Too-few-options warning */
 .too-few-warning {
     display: flex;

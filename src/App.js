@@ -47,6 +47,7 @@ function App() {
     return generateMilestonesAwards(initialExcludeMilestones, initialExcludeAwards, initialMaxPairSynergy, initialMaxTotalSynergy);
   });
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [showDescriptions, setShowDescriptions] = useState(true);
 
   const enoughMilestones = countAvailable(milestonesData, excludeMilestones) >= REQUIRED;
   const enoughAwards = countAvailable(awardsData, excludeAwards) >= REQUIRED;
@@ -167,22 +168,24 @@ function App() {
       {
         size.width >= 1.3 * size.height &&
         <div className='body-ma-h'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='h' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} showDescriptions={showDescriptions} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='h' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} showDescriptions={showDescriptions} />
         </div>
       }
       {
         size.width < 1.3 * size.height &&
         <div className='body-ma-v'>
-          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} />
-          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} />
+          <MilestonesAwards type='milestones' cards={getProperties(milestonesData, draw.milestones)} orient='v' onRerandomize={rerandomizeMilestones} onRemove={removeMilestone} onReroll={rerollMilestone} tooFew={!enoughMilestones} showDescriptions={showDescriptions} />
+          <MilestonesAwards type='awards' cards={getProperties(awardsData, draw.awards)} orient='v' onRerandomize={rerandomizeAwards} onRemove={removeAward} onReroll={rerollAward} tooFew={!enoughAwards} showDescriptions={showDescriptions} />
         </div>
       }
       {settingsOpen && (
         <SettingsModal
           excludeMilestones={excludeMilestones}
           excludeAwards={excludeAwards}
+          showDescriptions={showDescriptions}
           onChange={handleSettingsChange}
+          onShowDescriptionsChange={setShowDescriptions}
           onClose={handleSettingsClose}
         />
       )}
