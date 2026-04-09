@@ -19,7 +19,7 @@ function trySelect(candidates, already, probCurve) {
   if (viable.length === 0) return null;
 
   // Use the joint probability as a weight. Retry up to 200 times, then fall back to a random viable pick.
-  for (let i = 0; i < 200; i++) {
+  for (let i = 0; i < 100; i++) {
     const candidate = viable[Math.floor(Math.random() * viable.length)];
     if (already.every(item => Math.random() < probCurve(getSynergy(candidate, item)))) {
       return candidate;
@@ -44,50 +44,68 @@ export function selectAward(availableAwards, selectedMilestones, selectedAwards,
 
 export function generateMilestonesAwards(availableMilestones, availableAwards, maxIndividualSynergy) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  const milestones = [];
-  const awards = [];
 
-  while (milestones.length + awards.length < REQUIRED * 2) {
-    const mNeeded = REQUIRED - milestones.length;
-    const aNeeded = REQUIRED - awards.length;
-    const pickMilestone = Math.random() < mNeeded / (mNeeded + aNeeded);
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const milestones = [];
+    const awards = [];
+    let failed = false;
 
-    if (pickMilestone) {
-      const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...awards], probCurve);
-      if (m === null) throw new Error('Not enough milestones satisfy synergy constraints. Enable more milestones.');
-      milestones.push(m);
-    } else {
-      const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...milestones, ...awards], probCurve);
-      if (a === null) throw new Error('Not enough awards satisfy synergy constraints. Enable more awards.');
-      awards.push(a);
+    while (milestones.length + awards.length < REQUIRED * 2) {
+      const mNeeded = REQUIRED - milestones.length;
+      const aNeeded = REQUIRED - awards.length;
+      const pickMilestone = Math.random() < mNeeded / (mNeeded + aNeeded);
+
+      if (pickMilestone) {
+        const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...awards], probCurve);
+        if (m === null) { failed = true; break; }
+        milestones.push(m);
+      } else {
+        const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...milestones, ...awards], probCurve);
+        if (a === null) { failed = true; break; }
+        awards.push(a);
+      }
     }
+
+    if (!failed) return { milestones, awards };
   }
 
-  return { milestones, awards };
+  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
 
 export function generateMilestonesOnly(availableMilestones, currentAwards, maxIndividualSynergy) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  const milestones = [];
 
-  while (milestones.length < REQUIRED) {
-    const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...currentAwards], probCurve);
-    if (m === null) throw new Error('Not enough milestones satisfy synergy constraints. Enable more milestones.');
-    milestones.push(m);
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const milestones = [];
+    let failed = false;
+
+    while (milestones.length < REQUIRED) {
+      const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...currentAwards], probCurve);
+      if (m === null) { failed = true; break; }
+      milestones.push(m);
+    }
+
+    if (!failed) return { milestones, awards: currentAwards };
   }
 
-  return { milestones, awards: currentAwards };
+  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
 
 export function generateAwardsOnly(availableAwards, currentMilestones, maxIndividualSynergy) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  const awards = [];
 
-  while (awards.length < REQUIRED) {
-    const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...currentMilestones, ...awards], probCurve);
-    if (a === null) throw new Error('Not enough awards satisfy synergy constraints. Enable more awards.');
-    awards.push(a);
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const awards = [];
+    let failed = false;
+
+    while (awards.length < REQUIRED) {
+      const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...currentMilestones, ...awards], probCurve);
+      if (a === null) { failed = true; break; }
+      awards.push(a);
+    }
+
+    if (!failed) return { milestones: currentMilestones, awards };
   }
 
-  return { milestones: currentMilestones, awards };
+  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
