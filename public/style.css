@@ -273,13 +273,12 @@ html, body, #root {
     flex: 0;
     margin: auto;
     font-family: 'Titillium Web', sans-serif;
-    font-style: italic;
-    font-weight: 800;
+    /* font-weight: 800; */
     font-size: max(1.7vh, 1.7vw);
     letter-spacing: 3px;
     text-align: center;
     text-wrap: wrap;
-    text-shadow: 0px 0px 4px black;
+    text-shadow: 1px 1px 1px black;
 }
 
 .ma-description {

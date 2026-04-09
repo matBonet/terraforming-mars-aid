@@ -15,10 +15,12 @@ function App() {
   const size = useWindowSize();
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const { draw, availableMilestones, availableAwards, rerandomize } = useStore();
+  const { draw, availableMilestones, availableAwards, rerandomize, error } = useStore();
 
   const enoughMilestones = availableMilestones.length >= REQUIRED;
   const enoughAwards = availableAwards.length >= REQUIRED;
+  const milestoneError = error && error.toLowerCase().includes('milestone') ? error : null;
+  const awardError = error && error.toLowerCase().includes('award') ? error : null;
 
   const milestoneCards = getProperties(milestonesData, draw.milestones);
   const awardCards = getProperties(awardsData, draw.awards);
@@ -32,8 +34,8 @@ function App() {
         onOpenSettings={() => setSettingsOpen(true)}
       />
       <div className={isHorizontal ? 'body-ma-h' : 'body-ma-v'}>
-        <MilestonesAwards type='milestones' cards={milestoneCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughMilestones} />
-        <MilestonesAwards type='awards' cards={awardCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughAwards} />
+        <MilestonesAwards type='milestones' cards={milestoneCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughMilestones} warning={milestoneError} />
+        <MilestonesAwards type='awards' cards={awardCards} orient={isHorizontal ? 'h' : 'v'} tooFew={!enoughAwards} warning={awardError} />
       </div>
       {settingsOpen && (
         <SettingsModal onClose={() => setSettingsOpen(false)} />

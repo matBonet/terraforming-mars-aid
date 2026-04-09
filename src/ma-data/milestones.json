@@ -47,12 +47,6 @@
         "source": "base",
         "description": "5 animal and microbe resources combined"
     },
-    "philantropist": {
-        "name": "Philantropist",
-        "official": true,
-        "source": "base",
-        "description": "5 cards with non-negative VP. (Cards that count 1 VP per 2 microbes or similar cards also count.)"
-    },
     "forester": {
         "name": "Forester",
         "official": true,
@@ -124,6 +118,12 @@
         "official": true,
         "source": "base",
         "description": "6 steel and titanium production combined"
+    },
+    "philantropist": {
+        "name": "Philantropist",
+        "official": true,
+        "source": "base",
+        "description": "5 cards with non-negative VP. (Cards that count 1 VP per 2 microbes or similar cards also count.)"
     },
     "pioneer": {
         "name": "Pioneer",
@@ -202,5 +202,11 @@
         "official": true,
         "source": "base",
         "description": "3 different types of resources on cards"
+    },
+    "tycoon": {
+        "name": "Tycoon",
+        "official": true,
+        "source": "base",
+        "description": "10 blue and green cards combined."
     }
 }
