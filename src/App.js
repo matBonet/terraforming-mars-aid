@@ -54,9 +54,12 @@ function App() {
     setExcludeMilestones(newExclM);
     syncURL(newExclM, excludeAwards);
     setDraw(prev => {
+      const idx = prev.milestones.indexOf(slug);
       const remaining = prev.milestones.filter(m => m !== slug);
       const replacement = generateSingleMilestone(newExclM, remaining, prev.awards, initialMaxPairSynergy);
-      return { ...prev, milestones: [...remaining, replacement] };
+      const next = [...remaining];
+      next.splice(idx, 0, replacement);
+      return { ...prev, milestones: next };
     });
   }
 
@@ -65,9 +68,12 @@ function App() {
     setExcludeAwards(newExclA);
     syncURL(excludeMilestones, newExclA);
     setDraw(prev => {
+      const idx = prev.awards.indexOf(slug);
       const remaining = prev.awards.filter(a => a !== slug);
       const replacement = generateSingleAward(newExclA, prev.milestones, remaining, initialMaxPairSynergy);
-      return { ...prev, awards: [...remaining, replacement] };
+      const next = [...remaining];
+      next.splice(idx, 0, replacement);
+      return { ...prev, awards: next };
     });
   }
 
