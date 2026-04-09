@@ -1,6 +1,10 @@
-import Card from './Card'
+import useStore from '../store';
+import Card from './Card';
 
-function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, onReroll, tooFew, showDescriptions }) {
+function MilestonesAwards({ type, cards, orient, tooFew }) {
+	const { rerandomizeMilestones, rerandomizeAwards } = useStore();
+	const onRerandomize = type === 'milestones' ? rerandomizeMilestones : rerandomizeAwards;
+
 	return (
 		<div className={'ma-group-'+orient}>
 			<div className="nav-bar-ma">
@@ -23,12 +27,10 @@ function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, onRero
 					{Object.keys(cards).map(function(key) {
 						return <Card
 							key={key}
-							short={key}
+							slug={key}
+							type={type}
 							title={cards[key].name.toUpperCase()}
 							description={cards[key].description}
-							onRemove={() => onRemove(key)}
-							onReroll={() => onReroll(key)}
-							showDescriptions={showDescriptions}
 						/>;
 					})}
 				</div>

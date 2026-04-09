@@ -1,3 +1,5 @@
+import useStore from '../store';
+
 const ICON_SLUGS = new Set([
   'banker', 'benefactor', 'botanist', 'builder', 'celebrity', 'coastguard',
   'contractor', 'cultivator', 'diversifier', 'electrician', 'energizer',
@@ -10,20 +12,24 @@ const ICON_SLUGS = new Set([
   'tycoon', 'venuphile', 'zoologist',
 ]);
 
-function Card({ short, title, description, onRemove, onReroll, showDescriptions }) {
+function Card({ slug, type, title, description }) {
+  const { showDescriptions, removeMilestone, removeAward, rerollMilestone, rerollAward } = useStore();
+  const onRemove = type === 'milestones' ? () => removeMilestone(slug) : () => removeAward(slug);
+  const onReroll = type === 'milestones' ? () => rerollMilestone(slug) : () => rerollAward(slug);
+
   return (
     <div className="card-outer">
       <button className="card-reroll-btn" onClick={onReroll} title="Re-roll">&#x21BB;</button>
       <button className="card-remove-btn" onClick={onRemove} title="Exclude and re-roll">&#x2715;</button>
       <div className="card-inner">
-        {ICON_SLUGS.has(short)
-          ? <img src={process.env.PUBLIC_URL + "/ma-icons/" + short + ".png"} className="ma-logo" alt="" />
+        {ICON_SLUGS.has(slug)
+          ? <img src={process.env.PUBLIC_URL + "/ma-icons/" + slug + ".png"} className="ma-logo" alt="" />
           : <p className="ma-title">{title}</p>
         }
         {showDescriptions && <p className="ma-description">{description}</p>}
       </div>
     </div>
-  )
+  );
 };
 
 export default Card;
