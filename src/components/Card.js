@@ -1,6 +1,7 @@
 function Card({ short, title, description, onRemove }) {
   return (
     <div className="card-outer">
+      <button className="card-reroll-btn" title="Re-roll">&#x21BB;</button>
       <button className="card-remove-btn" onClick={onRemove} title="Exclude and re-roll">&#x2715;</button>
       <div className="card-inner">
         <img

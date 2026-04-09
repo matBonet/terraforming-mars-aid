@@ -3,8 +3,13 @@ import Card from './Card'
 function MilestonesAwards({ type, cards, orient, onRerandomize, onRemove, tooFew }) {
 	return (
 		<div className={'ma-group-'+orient}>
-			<div className="nav-bar-ma" onClick={!tooFew ? onRerandomize : undefined} title={!tooFew ? 'Re-roll ' + type : undefined} style={tooFew ? { cursor: 'default' } : {}}>
-				<div className="nav-bar-ma-pill">
+			<div className="nav-bar-ma">
+				<div
+					className="nav-bar-ma-pill"
+					onClick={!tooFew ? onRerandomize : undefined}
+					title={!tooFew ? 'Re-roll ' + type : undefined}
+					style={!tooFew ? { cursor: 'pointer' } : {}}
+				>
 					<span>{type.toUpperCase()}</span>
 					{!tooFew && <span className="rerandomize-icon">&#x21BB;</span>}
 				</div>
