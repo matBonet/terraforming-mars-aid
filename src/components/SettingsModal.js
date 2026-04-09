@@ -1,9 +1,22 @@
 import useStore, { REQUIRED } from '../store';
 import milestonesData from '../ma-data/milestones.json';
 import awardsData from '../ma-data/awards.json';
+import ExpansionIcon from './ExpansionIcon';
 
 const allMilestoneSlugs = Object.keys(milestonesData);
 const allAwardSlugs = Object.keys(awardsData);
+
+const expansionSources = [...new Set([
+  ...Object.values(milestonesData),
+  ...Object.values(awardsData),
+].map(d => d.source).filter(s => s !== 'base'))];
+
+const milestonesBySource = Object.fromEntries(
+  expansionSources.map(s => [s, Object.keys(milestonesData).filter(k => milestonesData[k].source === s)])
+);
+const awardsBySource = Object.fromEntries(
+  expansionSources.map(s => [s, Object.keys(awardsData).filter(k => awardsData[k].source === s)])
+);
 
 function SettingsModal({ onClose }) {
   const {
@@ -34,6 +47,22 @@ function SettingsModal({ onClose }) {
     setAvailable(availableMilestones, newAvailA);
   }
 
+  function toggleExpansion(source, isOn) {
+    const mSlugs = milestonesBySource[source];
+    const aSlugs = awardsBySource[source];
+    if (isOn) {
+      setAvailable(
+        availableMilestones.filter(s => milestonesData[s]?.source !== source),
+        availableAwards.filter(s => awardsData[s]?.source !== source),
+      );
+    } else {
+      setAvailable(
+        [...new Set([...availableMilestones, ...mSlugs])],
+        [...new Set([...availableAwards, ...aSlugs])],
+      );
+    }
+  }
+
   return (
     <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div className="modal-content">
@@ -54,6 +83,23 @@ function SettingsModal({ onClose }) {
                 <span className="settings-toggle-dot" />
                 Card descriptions
               </button>
+              <div className="expansion-toggle-row">
+                {expansionSources.map(source => {
+                  const anyOn = milestonesBySource[source].some(s => availMSet.has(s))
+                    || awardsBySource[source].some(s => availASet.has(s));
+                  const state = anyOn ? 'on' : 'off';
+                  return (
+                    <button
+                      key={source}
+                      className={`expansion-toggle-btn expansion-toggle-btn--${state}`}
+                      title={state === 'on' ? `Disable ${source}` : `Enable ${source}`}
+                      onClick={() => toggleExpansion(source, state === 'on')}
+                    >
+                      <ExpansionIcon source={source} />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className="modal-section">
@@ -76,6 +122,7 @@ function SettingsModal({ onClose }) {
                   title={data.description}
                 >
                   {data.name}
+                  <ExpansionIcon source={data.source} />
                 </button>
               ))}
             </div>
@@ -100,6 +147,7 @@ function SettingsModal({ onClose }) {
                   title={data.description}
                 >
                   {data.name}
+                  <ExpansionIcon source={data.source} />
                 </button>
               ))}
             </div>

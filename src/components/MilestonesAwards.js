@@ -36,6 +36,7 @@ function MilestonesAwards({ type, cards, orient, tooFew, warning }) {
 							type={type}
 							title={cards[key].name.toUpperCase()}
 							description={cards[key].description}
+							source={cards[key].source}
 						/>;
 					})}
 				</div>

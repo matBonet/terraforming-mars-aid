@@ -1,4 +1,5 @@
 import useStore from '../store';
+import ExpansionIcon from './ExpansionIcon';
 
 const ICON_SLUGS = new Set([
   'banker', 'benefactor', 'botanist', 'builder', 'celebrity', 'coastguard',
@@ -12,7 +13,7 @@ const ICON_SLUGS = new Set([
   'tycoon', 'venuphile', 'zoologist',
 ]);
 
-function Card({ slug, type, title, description }) {
+function Card({ slug, type, title, description, source }) {
   const { showDescriptions, removeMilestone, removeAward, rerollMilestone, rerollAward } = useStore();
   const onRemove = type === 'milestones' ? () => removeMilestone(slug) : () => removeAward(slug);
   const onReroll = type === 'milestones' ? () => rerollMilestone(slug) : () => rerollAward(slug);
@@ -21,6 +22,7 @@ function Card({ slug, type, title, description }) {
     <div className="card-outer">
       <button className="card-reroll-btn" onClick={onReroll} title="Re-roll">&#x21BB;</button>
       <button className="card-remove-btn" onClick={onRemove} title="Exclude and re-roll">&#x2715;</button>
+      <div className="card-expansion-icon"><ExpansionIcon source={source} /></div>
       <div className="card-inner">
         {ICON_SLUGS.has(slug)
           ? <img src={process.env.PUBLIC_URL + "/ma-icons/" + slug + ".png"} className="ma-logo" alt="" />
