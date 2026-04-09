@@ -1,53 +1,73 @@
 
 # terraforming-mars-aid
 
-Click the link below to randomize milestones and awards according to your expansions!
+A randomizer for Milestones & Awards in the Terraforming Mars board game. Open the app, configure which expansions you own in Settings, and roll.
 
-[Base game](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,pioneer,planetologist&exclude_awards=politician,constructor)
+[Play](https://matbonet.github.io/terraforming-mars-aid)
 
-[Venus Next](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,pioneer&exclude_awards=politician,constructor)
+---
 
-[Colonies](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist,planetologist&exclude_awards=politician)
+# Architecture
 
-[Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=pioneer,planetologist&exclude_awards=constructor)
+```mermaid
+flowchart TB
+    subgraph data["src/ma-data/"]
+        MJ["milestones.json"]
+        AJ["awards.json"]
+        SJ["synergies.json"]
+    end
 
-[Venus Next + Colonies](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=lobbyist&exclude_awards=politician)
+    subgraph rand["randomizer.js · pure functions"]
+        R["generateMilestonesAwards\ngenerateMilestonesOnly · generateAwardsOnly\ngenerateSingleMilestone · generateSingleAward\n\nAccepts: availableMilestones, availableAwards"]
+    end
 
-[Venus Next + Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=pioneer&exclude_awards=constructor)
+    subgraph store["store.js · Zustand"]
+        ST["State\n availableMilestones · availableAwards · draw · showDescriptions\n\nActions\n rerandomize · rerandomizeMilestones · rerandomizeAwards\n rerollMilestone · rerollAward\n removeMilestone · removeAward\n setAvailable · setShowDescriptions"]
+    end
 
-[Colonies + Turmoil](https://matbonet.github.io/terraforming-mars-aid?exclude_milestones=planetologist)
+    subgraph ui["React Components"]
+        App["App\nlayout · settingsOpen"]
+        NavBar["NavBar"]
+        MA["MilestonesAwards\ntype · cards · orient · tooFew"]
+        Card["Card\nslug · type · title · description"]
+        SM["SettingsModal"]
+    end
 
-[All](https://matbonet.github.io/terraforming-mars-aid)
+    SJ --> rand
+    MJ & AJ --> store
+    rand --> store
+    store -- "read state" --> ui
+    ui -- "call actions" --> store
+    App --> NavBar & MA & SM
+    MA --> Card
+```
 
-<sub>\* Feel free to customize the url parameters to better adjust the randomization to your desires!</sub>
+---
 
 # Randomization method
 
-``` mermaid
+```mermaid
 flowchart LR
-  PARAMS(["Initial parameters\n excludedAwards, excludedMilestones \n maxIndividualSynergy, maxTotalSynergy "])
+  PARAMS(["Available milestones & awards\nmaxIndividualSynergy · maxTotalSynergy"])
   LOAD_SIN(Load synergy matrix)
-  BUILD_SETS("Generate sets of valid Milestones & Awards\n(availableAwards, availableMilestones)")
-  INIT_RESULTS("Initialize result sets\n(selectedAwards, selectedMilestones)")
+  INIT_RESULTS("Initialize result sets\nselectedAwards · selectedMilestones")
 
-  LEN_CHECK{"Have 5 awards and 5 milestones \n been selected?"}
-  CHECK_AW_LARG{"Are there more selected awards?"}
-  CHECK_TOTAL_SYN{"Total synergy > maxTotalSynergy?"}
-  
-  PARAMS --> LOAD_SIN --> BUILD_SETS --> INIT_RESULTS --> LEN_CHECK
-  LEN_CHECK --Yes---> CHECK_TOTAL_SYN --Yes---> INIT_RESULTS
-  CHECK_TOTAL_SYN --Yes---> DONE((Done))
-  LEN_CHECK --No---> CHECK_AW_LARG
-  
+  LEN_CHECK{"5 awards and\n5 milestones\nselected?"}
+  PICK("Pick candidate\n(balance milestone/award counts)")
+  REJECT{"Reject by\npair synergy?"}
+  CHECK_TOTAL_SYN{"Total synergy\n> max?"}
 
+  PARAMS --> LOAD_SIN --> INIT_RESULTS --> LEN_CHECK
+  LEN_CHECK -- No --> PICK --> REJECT
+  REJECT -- Yes --> PICK
+  REJECT -- No --> LEN_CHECK
+  LEN_CHECK -- Yes --> CHECK_TOTAL_SYN
+  CHECK_TOTAL_SYN -- Yes --> INIT_RESULTS
+  CHECK_TOTAL_SYN -- No --> DONE((Done))
 ```
 
-## Free parameters
-
-## Load synergy matrix
-
-## Generate sets of valid awards and milestones
+---
 
 # About
 
-Built with React and bare CSS and HTML.
+Built with React, Zustand, and bare CSS.
