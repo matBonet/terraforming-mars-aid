@@ -1,5 +1,7 @@
+import { useState } from "react";
 import useStore from "../store";
 import ExpansionIcon from "./ExpansionIcon";
+import CardActionSheet from "./CardActionSheet";
 
 const ICON_SLUGS = new Set([
   "banker",
@@ -54,26 +56,51 @@ const ICON_SLUGS = new Set([
 ]);
 
 function CardMobile({ slug, type, title, description, source }) {
-  const { showDescriptions } = useStore();
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const {
+    showDescriptions,
+    removeMilestone,
+    removeAward,
+    rerollMilestone,
+    rerollAward,
+  } = useStore();
+
+  const onRemove = type === "milestones" ? () => removeMilestone(slug) : () => removeAward(slug);
+  const onReroll = type === "milestones" ? () => rerollMilestone(slug) : () => rerollAward(slug);
 
   return (
-    <div className="card-outer">
-      <div className="card-expansion-icon">
-        <ExpansionIcon source={source} />
+    <>
+      <div
+        className="card-outer"
+        onClick={() => setSheetOpen(true)}
+      >
+        <div className="card-expansion-icon">
+          <ExpansionIcon source={source} />
+        </div>
+        <div className="card-inner">
+          {ICON_SLUGS.has(slug) ? (
+            <img
+              src={process.env.PUBLIC_URL + "/ma-icons/" + slug + ".png"}
+              className="ma-logo"
+              alt=""
+            />
+          ) : (
+            <p className="ma-title">{title}</p>
+          )}
+          {showDescriptions && <p className="ma-description">{description}</p>}
+        </div>
       </div>
-      <div className="card-inner">
-        {ICON_SLUGS.has(slug) ? (
-          <img
-            src={process.env.PUBLIC_URL + "/ma-icons/" + slug + ".png"}
-            className="ma-logo"
-            alt=""
-          />
-        ) : (
-          <p className="ma-title">{title}</p>
-        )}
-        {showDescriptions && <p className="ma-description">{description}</p>}
-      </div>
-    </div>
+
+      {sheetOpen && (
+        <CardActionSheet
+          title={title}
+          description={description}
+          onReroll={onReroll}
+          onExclude={onRemove}
+          onClose={() => setSheetOpen(false)}
+        />
+      )}
+    </>
   );
 }
 
