@@ -1,32 +1,45 @@
-import useStore, { REQUIRED } from '../store';
-import { useBackButton } from '../hooks/useBackButton';
-import { usePlatform } from '../hooks/usePlatform';
-import milestonesData from '../ma-data/milestones.json';
-import awardsData from '../ma-data/awards.json';
-import ExpansionIcon from './ExpansionIcon';
-import { FaXmark } from 'react-icons/fa6';
+import useStore, { REQUIRED } from "../store";
+import { useBackButton } from "../hooks/useBackButton";
+import { usePlatform } from "../hooks/usePlatform";
+import milestonesData from "../ma-data/milestones.json";
+import awardsData from "../ma-data/awards.json";
+import ExpansionIcon from "./ExpansionIcon";
+import { FaXmark } from "react-icons/fa6";
 
 const allMilestoneSlugs = Object.keys(milestonesData);
 const allAwardSlugs = Object.keys(awardsData);
 
-const expansionSources = [...new Set([
-  ...Object.values(milestonesData),
-  ...Object.values(awardsData),
-].map(d => d.source).filter(s => s !== 'base'))];
+const expansionSources = [
+  ...new Set(
+    [...Object.values(milestonesData), ...Object.values(awardsData)]
+      .map((d) => d.source)
+      .filter((s) => s !== "base"),
+  ),
+];
 
 const milestonesBySource = Object.fromEntries(
-  expansionSources.map(s => [s, Object.keys(milestonesData).filter(k => milestonesData[k].source === s)])
+  expansionSources.map((s) => [
+    s,
+    Object.keys(milestonesData).filter((k) => milestonesData[k].source === s),
+  ]),
 );
 const awardsBySource = Object.fromEntries(
-  expansionSources.map(s => [s, Object.keys(awardsData).filter(k => awardsData[k].source === s)])
+  expansionSources.map((s) => [
+    s,
+    Object.keys(awardsData).filter((k) => awardsData[k].source === s),
+  ]),
 );
 
 function SettingsModal({ onClose }) {
   useBackButton(onClose);
   const { isMobile } = usePlatform();
   const {
-    availableMilestones, availableAwards, error, showDescriptions,
-    setAvailable, setShowDescriptions,
+    availableMilestones,
+    availableAwards,
+    error,
+    showDescriptions,
+    setAvailable,
+    setShowDescriptions,
   } = useStore();
 
   const tooFewMilestones = availableMilestones.length < REQUIRED;
@@ -40,14 +53,14 @@ function SettingsModal({ onClose }) {
 
   function toggleMilestone(slug) {
     const newAvailM = availMSet.has(slug)
-      ? availableMilestones.filter(m => m !== slug)
+      ? availableMilestones.filter((m) => m !== slug)
       : [...availableMilestones, slug];
     setAvailable(newAvailM, availableAwards);
   }
 
   function toggleAward(slug) {
     const newAvailA = availASet.has(slug)
-      ? availableAwards.filter(a => a !== slug)
+      ? availableAwards.filter((a) => a !== slug)
       : [...availableAwards, slug];
     setAvailable(availableMilestones, newAvailA);
   }
@@ -57,8 +70,8 @@ function SettingsModal({ onClose }) {
     const aSlugs = awardsBySource[source];
     if (isOn) {
       setAvailable(
-        availableMilestones.filter(s => milestonesData[s]?.source !== source),
-        availableAwards.filter(s => awardsData[s]?.source !== source),
+        availableMilestones.filter((s) => milestonesData[s]?.source !== source),
+        availableAwards.filter((s) => awardsData[s]?.source !== source),
       );
     } else {
       setAvailable(
@@ -69,21 +82,30 @@ function SettingsModal({ onClose }) {
   }
 
   return (
-    <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div
+      className="modal-overlay"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
       <div className="modal-content">
         <div className="modal-header">
           <h2>Settings</h2>
-          <button className="modal-close-btn" onClick={onClose} title="Close"><FaXmark aria-hidden="true" /></button>
+          <button className="modal-close-btn" onClick={onClose} title="Close">
+            <FaXmark aria-hidden="true" />
+          </button>
         </div>
         <div className="modal-sections">
           <div className="modal-section">
             <div className="modal-section-header">
-              <div className="nav-bar-ma-pill modal-pill"><span>GENERAL</span></div>
+              <div className="nav-bar-ma-pill modal-pill">
+                <span>GENERAL</span>
+              </div>
             </div>
             <div className="modal-section-items">
               {!isMobile && (
                 <button
-                  className={`settings-toggle ${showDescriptions ? 'settings-toggle--on' : 'settings-toggle--off'}`}
+                  className={`settings-toggle ${showDescriptions ? "settings-toggle--on" : "settings-toggle--off"}`}
                   onClick={() => setShowDescriptions(!showDescriptions)}
                 >
                   <span className="settings-toggle-dot" />
@@ -91,17 +113,24 @@ function SettingsModal({ onClose }) {
                 </button>
               )}
               <div className="expansion-toggle-row">
-                <span className="expansion-toggle-label">Set/Unset expansions</span>
-                {expansionSources.map(source => {
-                  const anyOn = milestonesBySource[source].some(s => availMSet.has(s))
-                    || awardsBySource[source].some(s => availASet.has(s));
-                  const state = anyOn ? 'on' : 'off';
+                <span className="expansion-toggle-label">
+                  Set/Unset expansions
+                </span>
+                {expansionSources.map((source) => {
+                  const anyOn =
+                    milestonesBySource[source].some((s) => availMSet.has(s)) ||
+                    awardsBySource[source].some((s) => availASet.has(s));
+                  const state = anyOn ? "on" : "off";
                   return (
                     <button
                       key={source}
                       className={`expansion-toggle-btn expansion-toggle-btn--${state}`}
-                      title={state === 'on' ? `Disable ${source}` : `Enable ${source}`}
-                      onClick={() => toggleExpansion(source, state === 'on')}
+                      title={
+                        state === "on"
+                          ? `Disable ${source}`
+                          : `Enable ${source}`
+                      }
+                      onClick={() => toggleExpansion(source, state === "on")}
                     >
                       <ExpansionIcon source={source} />
                     </button>
@@ -114,18 +143,34 @@ function SettingsModal({ onClose }) {
             <div className="modal-section-header">
               <div className="nav-bar-ma-pill modal-pill">
                 <span>MILESTONES</span>
-                <span className={milestoneOk ? 'modal-pill-ok' : 'modal-pill-err'}>{milestoneOk ? '✓' : '✕'}</span>
+                <span
+                  className={milestoneOk ? "modal-pill-ok" : "modal-pill-err"}
+                >
+                  {milestoneOk ? "✓" : "✕"}
+                </span>
               </div>
               <div className="modal-section-actions">
-                <button className="modal-action-btn" onClick={() => setAvailable(allMilestoneSlugs, availableAwards)}>Select all</button>
-                <button className="modal-action-btn" onClick={() => setAvailable([], availableAwards)}>Unselect all</button>
+                <button
+                  className="modal-action-btn"
+                  onClick={() =>
+                    setAvailable(allMilestoneSlugs, availableAwards)
+                  }
+                >
+                  Select all
+                </button>
+                <button
+                  className="modal-action-btn"
+                  onClick={() => setAvailable([], availableAwards)}
+                >
+                  Unselect all
+                </button>
               </div>
             </div>
             <div className="modal-section-items">
               {Object.entries(milestonesData).map(([slug, data]) => (
                 <button
                   key={slug}
-                  className={`toggle-btn ${availMSet.has(slug) ? 'toggle-btn--on' : 'toggle-btn--off'}`}
+                  className={`toggle-btn ${availMSet.has(slug) ? "toggle-btn--on" : "toggle-btn--off"}`}
                   onClick={() => toggleMilestone(slug)}
                   title={data.description}
                 >
@@ -139,18 +184,32 @@ function SettingsModal({ onClose }) {
             <div className="modal-section-header">
               <div className="nav-bar-ma-pill modal-pill">
                 <span>AWARDS</span>
-                <span className={awardOk ? 'modal-pill-ok' : 'modal-pill-err'}>{awardOk ? '✓' : '✕'}</span>
+                <span className={awardOk ? "modal-pill-ok" : "modal-pill-err"}>
+                  {awardOk ? "✓" : "✕"}
+                </span>
               </div>
               <div className="modal-section-actions">
-                <button className="modal-action-btn" onClick={() => setAvailable(availableMilestones, allAwardSlugs)}>Select all</button>
-                <button className="modal-action-btn" onClick={() => setAvailable(availableMilestones, [])}>Unselect all</button>
+                <button
+                  className="modal-action-btn"
+                  onClick={() =>
+                    setAvailable(availableMilestones, allAwardSlugs)
+                  }
+                >
+                  Select all
+                </button>
+                <button
+                  className="modal-action-btn"
+                  onClick={() => setAvailable(availableMilestones, [])}
+                >
+                  Unselect all
+                </button>
               </div>
             </div>
             <div className="modal-section-items">
               {Object.entries(awardsData).map(([slug, data]) => (
                 <button
                   key={slug}
-                  className={`toggle-btn ${availASet.has(slug) ? 'toggle-btn--on' : 'toggle-btn--off'}`}
+                  className={`toggle-btn ${availASet.has(slug) ? "toggle-btn--on" : "toggle-btn--off"}`}
                   onClick={() => toggleAward(slug)}
                   title={data.description}
                 >

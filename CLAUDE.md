@@ -68,6 +68,3 @@ All icons use `react-icons/fa6`: `FaRotateRight` (reroll), `FaXmark` (close/excl
 
 ### Card images
 `public/ma-icons/<slug>.png`. Cards without a matching image show their title text instead (controlled by `ICON_SLUGS` set in each Card variant).
-
-### URL parameters
-`exclude_milestones`, `exclude_awards` — comma-separated slug lists read at module load time in `App.js`. Used for expansion-specific links.

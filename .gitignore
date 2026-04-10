@@ -11,6 +11,7 @@
 # production
 /static
 /build
+logo*.png
 
 # misc
 .DS_Store
