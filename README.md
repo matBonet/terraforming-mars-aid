@@ -38,6 +38,9 @@ Player markers (colored cubes) can be placed on cards to track claims during a g
 
 ---
 
+## Persistence
+Zustand store with `persist` middleware (localStorage, version 2). Persisted keys: `availableMilestones`, `availableAwards`, `draw`, `showDescriptions`, `markers`. A `migrate` function filters stale slugs on load.
+
 ## Architecture
 
 ```mermaid
