@@ -675,6 +675,7 @@ html, body, #root {
 
 /* General settings radio toggles */
 .settings-toggle {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -714,21 +715,33 @@ html, body, #root {
 }
 
 .expansion-toggle-row {
+    grid-column: 1 / -1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     padding: 6px 10px;
+    margin-top: 10px;
+}
+
+.expansion-toggle-label {
+    font-size: 0.8rem;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    margin-right: 4px;
 }
 
 .expansion-toggle-btn {
     background: none;
     border: none;
     cursor: pointer;
-    padding: 2px;
+    padding: 4px;
     display: flex;
     align-items: center;
     border-radius: 50%;
     transition: opacity 0.15s;
+    font-size: 1.3rem;
 }
 
 .expansion-toggle-btn--off {

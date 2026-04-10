@@ -1,8 +1,10 @@
 import useStore, { REQUIRED } from '../store';
 import { useBackButton } from '../hooks/useBackButton';
+import { usePlatform } from '../hooks/usePlatform';
 import milestonesData from '../ma-data/milestones.json';
 import awardsData from '../ma-data/awards.json';
 import ExpansionIcon from './ExpansionIcon';
+import { FaXmark } from 'react-icons/fa6';
 
 const allMilestoneSlugs = Object.keys(milestonesData);
 const allAwardSlugs = Object.keys(awardsData);
@@ -21,6 +23,7 @@ const awardsBySource = Object.fromEntries(
 
 function SettingsModal({ onClose }) {
   useBackButton(onClose);
+  const { isMobile } = usePlatform();
   const {
     availableMilestones, availableAwards, error, showDescriptions,
     setAvailable, setShowDescriptions,
@@ -70,7 +73,7 @@ function SettingsModal({ onClose }) {
       <div className="modal-content">
         <div className="modal-header">
           <h2>Settings</h2>
-          <button className="modal-close-btn" onClick={onClose} title="Close">&#x2715;</button>
+          <button className="modal-close-btn" onClick={onClose} title="Close"><FaXmark aria-hidden="true" /></button>
         </div>
         <div className="modal-sections">
           <div className="modal-section">
@@ -78,14 +81,17 @@ function SettingsModal({ onClose }) {
               <div className="nav-bar-ma-pill modal-pill"><span>GENERAL</span></div>
             </div>
             <div className="modal-section-items">
-              <button
-                className={`settings-toggle ${showDescriptions ? 'settings-toggle--on' : 'settings-toggle--off'}`}
-                onClick={() => setShowDescriptions(!showDescriptions)}
-              >
-                <span className="settings-toggle-dot" />
-                Card descriptions
-              </button>
+              {!isMobile && (
+                <button
+                  className={`settings-toggle ${showDescriptions ? 'settings-toggle--on' : 'settings-toggle--off'}`}
+                  onClick={() => setShowDescriptions(!showDescriptions)}
+                >
+                  <span className="settings-toggle-dot" />
+                  Show Milestone/Award descriptions
+                </button>
+              )}
               <div className="expansion-toggle-row">
+                <span className="expansion-toggle-label">Set/Unset expansions</span>
                 {expansionSources.map(source => {
                   const anyOn = milestonesBySource[source].some(s => availMSet.has(s))
                     || awardsBySource[source].some(s => availASet.has(s));

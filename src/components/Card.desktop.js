@@ -1,6 +1,7 @@
 import useStore from "../store";
 import ExpansionIcon from "./ExpansionIcon";
 import IsoCube, { CUBE_COLORS } from "./IsoCube";
+import { FaRotateRight, FaXmark } from 'react-icons/fa6';
 
 const ICON_SLUGS = new Set([
   "banker",
@@ -88,14 +89,14 @@ function CardDesktop({ slug, type, title, description, source }) {
         onClick={() => requestAction(onReroll)}
         title="Re-roll"
       >
-        &#x21BB;
+        <FaRotateRight aria-hidden="true" />
       </button>
       <button
         className="card-remove-btn"
         onClick={() => requestAction(onRemove)}
         title="Exclude and re-roll"
       >
-        &#x2715;
+        <FaXmark aria-hidden="true" />
       </button>
       <div className="card-expansion-icon">
         <ExpansionIcon source={source} />

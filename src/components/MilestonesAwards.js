@@ -1,6 +1,7 @@
 import useStore from "../store";
 import { usePlatform } from "../hooks/usePlatform";
 import Card from "./Card";
+import { FaRotateRight } from 'react-icons/fa6';
 
 function MilestonesAwards({ type, cards, orient, warning }) {
   const { isMobile } = usePlatform();
@@ -22,7 +23,7 @@ function MilestonesAwards({ type, cards, orient, warning }) {
             style={!blocked ? { cursor: "pointer" } : {}}
           >
             <span>{type.toUpperCase()}</span>
-            {!blocked && <span className="rerandomize-icon">&#x21BB;</span>}
+            {!blocked && <FaRotateRight className="rerandomize-icon" aria-hidden="true" />}
           </div>
         </div>
       )}

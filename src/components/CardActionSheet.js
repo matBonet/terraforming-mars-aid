@@ -1,5 +1,6 @@
 import { useBackButton } from "../hooks/useBackButton";
 import IsoCube, { CUBE_COLORS } from "./IsoCube";
+import { FaRotateRight, FaXmark } from 'react-icons/fa6';
 
 function CardActionSheet({
   title,
@@ -67,7 +68,7 @@ function CardActionSheet({
               onClose();
             }}
           >
-            <span className="action-sheet-btn-icon">&#x21BB;</span>
+            <FaRotateRight className="action-sheet-btn-icon" aria-hidden="true" />
             Reroll
           </button>
           <button
@@ -77,7 +78,7 @@ function CardActionSheet({
               onClose();
             }}
           >
-            <span className="action-sheet-btn-icon">&#x2715;</span>
+            <FaXmark className="action-sheet-btn-icon" aria-hidden="true" />
             Exclude &amp; Reroll
           </button>
         </div>

@@ -1,5 +1,6 @@
 import { useBackButton } from '../hooks/useBackButton';
 import { usePlatform } from '../hooks/usePlatform';
+import { FaXmark } from 'react-icons/fa6';
 
 function HelpModal({ onClose }) {
   useBackButton(onClose);
@@ -11,7 +12,7 @@ function HelpModal({ onClose }) {
         {!isMobile && (
           <div className="modal-header">
             <h2>Help</h2>
-            <button className="modal-close-btn" onClick={onClose} title="Close">&#x2715;</button>
+            <button className="modal-close-btn" onClick={onClose} title="Close"><FaXmark aria-hidden="true" /></button>
           </div>
         )}
         <div className="modal-sections">
@@ -37,8 +38,28 @@ function HelpModal({ onClose }) {
             ) : (
               <ul className="help-list">
                 <li>Click <strong>Randomize</strong> on a section header to reroll that group.</li>
-                <li>Hover a card to reveal the <strong>↻ reroll</strong> and <strong>✕ exclude</strong> buttons.</li>
+                <li>Hover a card to reveal the <strong>reroll</strong> and <strong>exclude</strong> buttons.</li>
                 <li>Open <strong>Settings</strong> to choose which expansions and cards are available.</li>
+              </ul>
+            )}
+          </div>
+          <div className="modal-section">
+            <div className="modal-section-header">
+              <div className="nav-bar-ma-pill modal-pill"><span>PLAYER MARKERS</span></div>
+            </div>
+            {isMobile ? (
+              <ul className="help-list">
+                <li>Tap a card, then select a colored cube to mark it as claimed by a player.</li>
+                <li>Tap the same cube again to remove the marker.</li>
+                <li>Up to 3 Milestones and 3 Awards can be claimed — the rest will dim.</li>
+                <li>Rerolling a card while markers are active will ask for confirmation.</li>
+              </ul>
+            ) : (
+              <ul className="help-list">
+                <li>Click a colored cube at the bottom of a card to mark it as claimed.</li>
+                <li>Click the cube again to remove the marker.</li>
+                <li>Up to 3 Milestones and 3 Awards can be claimed — the rest will dim.</li>
+                <li>Rerolling while markers are active will ask for confirmation.</li>
               </ul>
             )}
           </div>
