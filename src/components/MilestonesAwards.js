@@ -2,12 +2,14 @@ import useStore from "../store";
 import { usePlatform } from "../hooks/usePlatform";
 import Card from "./Card";
 
-function MilestonesAwards({ type, cards, orient, tooFew, warning }) {
+function MilestonesAwards({ type, cards, orient, warning }) {
   const { isMobile } = usePlatform();
-  const { rerandomizeMilestones, rerandomizeAwards, requestAction } = useStore();
-  const rerandomize = type === "milestones" ? rerandomizeMilestones : rerandomizeAwards;
+  const { rerandomizeMilestones, rerandomizeAwards, requestAction } =
+    useStore();
+  const rerandomize =
+    type === "milestones" ? rerandomizeMilestones : rerandomizeAwards;
   const onRerandomize = () => requestAction(rerandomize);
-  const blocked = tooFew || !!warning;
+  const blocked = !!warning;
 
   return (
     <div className={"ma-group-" + orient}>
@@ -24,11 +26,7 @@ function MilestonesAwards({ type, cards, orient, tooFew, warning }) {
           </div>
         </div>
       )}
-      {tooFew ? (
-        <div className="too-few-warning">
-          At least 5 {type} must be available — enable more in Settings.
-        </div>
-      ) : warning ? (
+      {blocked ? (
         <div className="too-few-warning">{warning}</div>
       ) : (
         <div className={"ma-cards-" + orient}>

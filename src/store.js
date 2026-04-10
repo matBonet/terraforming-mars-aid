@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, devtools } from "zustand/middleware";
 import {
   generateMilestonesAwards,
   generateMilestonesOnly,
@@ -23,7 +23,7 @@ function withoutMarker(markers, slug) {
 }
 
 const useStore = create(
-  persist(
+  devtools(
     (set, get) => ({
       availableMilestones: allMilestoneSlugs,
       availableAwards: allAwardSlugs,

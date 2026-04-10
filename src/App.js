@@ -22,13 +22,10 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
 
-  const { draw, availableMilestones, availableAwards, rerandomize, error, pendingAction, requestAction } =
-    useStore();
+  const { draw, rerandomize, pendingAction, requestAction } = useStore();
 
-  const enoughMilestones = availableMilestones.length >= REQUIRED;
-  const enoughAwards = availableAwards.length >= REQUIRED;
   const synergyError =
-    error && enoughMilestones && enoughAwards
+    draw.awards.length < REQUIRED || draw.milestones.length < REQUIRED
       ? "Not enough synergy-compatible options — try enabling more milestones or awards in Settings."
       : null;
 
@@ -41,14 +38,12 @@ function App() {
         type="milestones"
         cards={milestoneCards}
         orient={isHorizontal ? "h" : "v"}
-        tooFew={!enoughMilestones}
         warning={synergyError}
       />
       <MilestonesAwards
         type="awards"
         cards={awardCards}
         orient={isHorizontal ? "h" : "v"}
-        tooFew={!enoughAwards}
         warning={synergyError}
       />
       <NavBar

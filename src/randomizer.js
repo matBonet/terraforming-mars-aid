@@ -1,6 +1,7 @@
-import synergyMatrix from './ma-data/synergies.json';
+import synergyMatrix from "./ma-data/synergies.json";
 
 const REQUIRED = 5;
+const MAX_REROLLS = 20;
 
 function getSynergy(ma1, ma2) {
   const [a, b] = ma1 < ma2 ? [ma1, ma2] : [ma2, ma1];
@@ -15,13 +16,19 @@ function makeLinearDecrease(max) {
 // using probCurve for weighted selection. Returns null only if no viable candidate exists.
 function trySelect(candidates, already, probCurve) {
   // A candidate is viable if its acceptance probability with every already-selected item is > 0.
-  const viable = candidates.filter(c => already.every(item => probCurve(getSynergy(c, item)) > 0));
+  const viable = candidates.filter((c) =>
+    already.every((item) => probCurve(getSynergy(c, item)) > 0),
+  );
   if (viable.length === 0) return null;
 
   // Use the joint probability as a weight. Retry up to 200 times, then fall back to a random viable pick.
   for (let i = 0; i < 100; i++) {
     const candidate = viable[Math.floor(Math.random() * viable.length)];
-    if (already.every(item => Math.random() < probCurve(getSynergy(candidate, item)))) {
+    if (
+      already.every(
+        (item) => Math.random() < probCurve(getSynergy(candidate, item)),
+      )
+    ) {
       return candidate;
     }
   }
@@ -29,26 +36,49 @@ function trySelect(candidates, already, probCurve) {
 }
 
 // Returns a milestone slug, or null if no valid candidate can be selected.
-export function selectMilestone(availableMilestones, selectedMilestones, selectedAwards, maxIndividualSynergy) {
+export function selectMilestone(
+  availableMilestones,
+  selectedMilestones,
+  selectedAwards,
+  maxIndividualSynergy,
+) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  const candidates = availableMilestones.filter(m => !selectedMilestones.includes(m));
-  return trySelect(candidates, [...selectedMilestones, ...selectedAwards], probCurve);
+  const candidates = availableMilestones.filter(
+    (m) => !selectedMilestones.includes(m),
+  );
+  return trySelect(
+    candidates,
+    [...selectedMilestones, ...selectedAwards],
+    probCurve,
+  );
 }
 
 // Returns an award slug, or null if no valid candidate can be selected.
-export function selectAward(availableAwards, selectedMilestones, selectedAwards, maxIndividualSynergy) {
+export function selectAward(
+  availableAwards,
+  selectedMilestones,
+  selectedAwards,
+  maxIndividualSynergy,
+) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
-  const candidates = availableAwards.filter(a => !selectedAwards.includes(a));
-  return trySelect(candidates, [...selectedMilestones, ...selectedAwards], probCurve);
+  const candidates = availableAwards.filter((a) => !selectedAwards.includes(a));
+  return trySelect(
+    candidates,
+    [...selectedMilestones, ...selectedAwards],
+    probCurve,
+  );
 }
 
-export function generateMilestonesAwards(availableMilestones, availableAwards, maxIndividualSynergy) {
+export function generateMilestonesAwards(
+  availableMilestones,
+  availableAwards,
+  maxIndividualSynergy,
+) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
 
-  for (let attempt = 0; attempt < 5; attempt++) {
+  for (let attempt = 0; attempt < MAX_REROLLS; attempt++) {
     const milestones = [];
     const awards = [];
-    let failed = false;
 
     while (milestones.length + awards.length < REQUIRED * 2) {
       const mNeeded = REQUIRED - milestones.length;
@@ -56,56 +86,79 @@ export function generateMilestonesAwards(availableMilestones, availableAwards, m
       const pickMilestone = Math.random() < mNeeded / (mNeeded + aNeeded);
 
       if (pickMilestone) {
-        const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...awards], probCurve);
-        if (m === null) { failed = true; break; }
+        const m = trySelect(
+          availableMilestones.filter((m) => !milestones.includes(m)),
+          [...milestones, ...awards],
+          probCurve,
+        );
+        if (m === null) {
+          break;
+        }
         milestones.push(m);
       } else {
-        const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...milestones, ...awards], probCurve);
-        if (a === null) { failed = true; break; }
+        const a = trySelect(
+          availableAwards.filter((a) => !awards.includes(a)),
+          [...milestones, ...awards],
+          probCurve,
+        );
+        if (a === null) {
+          break;
+        }
         awards.push(a);
       }
     }
-
-    if (!failed) return { milestones, awards };
+    return { milestones, awards };
   }
-
-  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
 
-export function generateMilestonesOnly(availableMilestones, currentAwards, maxIndividualSynergy) {
+export function generateMilestonesOnly(
+  availableMilestones,
+  currentAwards,
+  maxIndividualSynergy,
+) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
 
-  for (let attempt = 0; attempt < 5; attempt++) {
+  for (let attempt = 0; attempt < MAX_REROLLS; attempt++) {
     const milestones = [];
-    let failed = false;
 
     while (milestones.length < REQUIRED) {
-      const m = trySelect(availableMilestones.filter(m => !milestones.includes(m)), [...milestones, ...currentAwards], probCurve);
-      if (m === null) { failed = true; break; }
+      const m = trySelect(
+        availableMilestones.filter((m) => !milestones.includes(m)),
+        [...milestones, ...currentAwards],
+        probCurve,
+      );
+      if (m === null) {
+        break;
+      }
       milestones.push(m);
     }
 
-    if (!failed) return { milestones, awards: currentAwards };
+    return { milestones, awards: currentAwards };
   }
-
-  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
 
-export function generateAwardsOnly(availableAwards, currentMilestones, maxIndividualSynergy) {
+export function generateAwardsOnly(
+  availableAwards,
+  currentMilestones,
+  maxIndividualSynergy,
+) {
   const probCurve = makeLinearDecrease(maxIndividualSynergy);
 
-  for (let attempt = 0; attempt < 5; attempt++) {
+  for (let attempt = 0; attempt < MAX_REROLLS; attempt++) {
     const awards = [];
-    let failed = false;
 
     while (awards.length < REQUIRED) {
-      const a = trySelect(availableAwards.filter(a => !awards.includes(a)), [...currentMilestones, ...awards], probCurve);
-      if (a === null) { failed = true; break; }
+      const a = trySelect(
+        availableAwards.filter((a) => !awards.includes(a)),
+        [...currentMilestones, ...awards],
+        probCurve,
+      );
+      if (a === null) {
+        break;
+      }
       awards.push(a);
     }
 
-    if (!failed) return { milestones: currentMilestones, awards };
+    return { milestones: currentMilestones, awards };
   }
-
-  throw new Error('Not enough synergy-compatible options. Enable more milestones or awards.');
 }
