@@ -1,14 +1,9 @@
 import useStore from "../store";
+import { usePlatform } from "../hooks/usePlatform";
 import Card from "./Card";
 
-function MilestonesAwards({
-  type,
-  cards,
-  orient,
-  tooFew,
-  warning,
-  isPhone = false,
-}) {
+function MilestonesAwards({ type, cards, orient, tooFew, warning }) {
+  const { isMobile } = usePlatform();
   const { rerandomizeMilestones, rerandomizeAwards } = useStore();
   const onRerandomize =
     type === "milestones" ? rerandomizeMilestones : rerandomizeAwards;
@@ -16,7 +11,7 @@ function MilestonesAwards({
 
   return (
     <div className={"ma-group-" + orient}>
-      {!isPhone && (
+      {!isMobile && (
         <div className="nav-bar-ma">
           <div
             className="nav-bar-ma-pill"
@@ -46,7 +41,6 @@ function MilestonesAwards({
                 title={cards[key].name.toUpperCase()}
                 description={cards[key].description}
                 source={cards[key].source}
-                isPhone={isPhone}
               />
             );
           })}

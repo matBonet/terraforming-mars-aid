@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useWindowSize } from "@uidotdev/usehooks";
 import NavBar from "./components/NavBar";
 import MilestonesAwards from "./components/MilestonesAwards";
 import SettingsModal from "./components/SettingsModal";
 import useStore, { REQUIRED } from "./store";
+import { usePlatform } from "./hooks/usePlatform";
 import milestonesData from "./ma-data/milestones.json";
 import awardsData from "./ma-data/awards.json";
 
@@ -16,7 +16,7 @@ function getProperties(obj, arr) {
 }
 
 function App() {
-  const size = useWindowSize();
+  const { isHorizontal } = usePlatform();
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const { draw, availableMilestones, availableAwards, rerandomize, error } =
@@ -32,9 +32,6 @@ function App() {
   const milestoneCards = getProperties(milestonesData, draw.milestones);
   const awardCards = getProperties(awardsData, draw.awards);
 
-  const isHorizontal = size.width >= 1.3 * size.height;
-  const isPhone = Math.min(size.width, size.height) <= 600;
-
   return (
     <div className={isHorizontal ? "body-ma-h" : "body-ma-v"}>
       <MilestonesAwards
@@ -43,7 +40,6 @@ function App() {
         orient={isHorizontal ? "h" : "v"}
         tooFew={!enoughMilestones}
         warning={synergyError}
-        isPhone={isPhone}
       />
       <MilestonesAwards
         type="awards"
@@ -51,7 +47,6 @@ function App() {
         orient={isHorizontal ? "h" : "v"}
         tooFew={!enoughAwards}
         warning={synergyError}
-        isPhone={isPhone}
       />
       <NavBar
         onRerandomize={rerandomize}
