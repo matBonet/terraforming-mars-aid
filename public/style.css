@@ -4,48 +4,220 @@ html, body, #root {
     width: 100vw;
 }
 
-.container {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 100%;
-}
 
-.nav-bar {
+/* ── Desktop top bar (default: visible) ───────────────────── */
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 58px;
     display: flex;
-    flex: 0;
     align-items: center;
-    background-color: #21222A;
-    padding: 10px 20px;
-    border-bottom: 1px solid rgba(97, 218, 251, 0.2);
+    justify-content: center;
+    background: rgba(18, 19, 24, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(222, 235, 248, 0.08);
+    z-index: 50;
 }
 
-.nav-bar > h3{
-    color: #61DAFB;
-    margin-right: auto;
+.top-bar-title {
     font-family: 'Titillium Web', sans-serif;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(222, 235, 248, 0.75);
+    user-select: none;
 }
 
-.nav-bar > h4 {
+.top-bar-actions {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.top-bar-icon-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(222, 235, 248, 0.22);
+    background: rgba(222, 235, 248, 0.08);
+    color: rgba(222, 235, 248, 0.7);
+    font-size: 1.1rem;
+    font-family: 'Titillium Web', sans-serif;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.top-bar-icon-btn:hover {
+    background: rgba(222, 235, 248, 0.16);
+    border-color: rgba(222, 235, 248, 0.45);
     color: #DEEBF8;
+}
+
+.top-bar-settings-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    padding: 0 20px 0 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(
+        45deg,
+        #999 5%,
+        #ddd 10%,
+        #aaa 30%,
+        #bbb 50%,
+        #ccc 70%,
+        #ddd 80%,
+        #aaa 95%
+    );
+    color: #3a3a3a;
     font-family: 'Titillium Web', sans-serif;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.5);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+    transition: filter 0.15s, box-shadow 0.15s;
+}
+
+.top-bar-settings-btn:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* ── Mobile floating pill (default: hidden) ───────────────── */
+.floating-bar {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    gap: 4px;
+    background: rgba(18, 19, 24, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(222, 235, 248, 0.13);
+    border-radius: 50px;
+    padding: 6px 8px;
+    z-index: 50;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, 0.55), 0 1px 0 rgba(255,255,255,0.05) inset;
+}
+
+.floating-bar-divider {
+    width: 1px;
+    height: 22px;
+    background: rgba(222, 235, 248, 0.15);
+    flex-shrink: 0;
+    margin: 0 2px;
+}
+
+.floating-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: none;
+    border-radius: 40px;
+    color: rgba(222, 235, 248, 0.75);
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.5px;
+    padding: 8px 14px;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+}
+
+.floating-btn:hover {
+    background: rgba(222, 235, 248, 0.1);
+    color: #DEEBF8;
+}
+
+.floating-btn--primary {
+    color: #DEEBF8;
+}
+
+.floating-btn--primary:hover {
+    background: rgba(97, 218, 251, 0.15);
+    color: #61DAFB;
+}
+
+.floating-btn-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.floating-btn--primary:hover .floating-btn-icon {
+    transform: rotate(180deg);
+}
+
+.floating-btn-label {
+    line-height: 1;
+}
+
+/* ── Responsive swap ──────────────────────────────────────── */
+@media (hover: none) and (pointer: coarse) {
+    .top-bar { display: none; }
+    .floating-bar { display: flex; }
 }
 
 .body-ma-v {
     display: flex;
-    flex: 1;
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(ellipse at center, #2a2b36 0%, #18191f 100%);
+    box-sizing: border-box;
 }
 
 .body-ma-h {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(ellipse at center, #2a2b36 0%, #18191f 100%);
+    box-sizing: border-box;
+}
+
+@media not all and (hover: none) and (pointer: coarse) {
+    .body-ma-v,
+    .body-ma-h {
+        padding-top: 58px;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .body-ma-v,
+    .body-ma-h {
+        padding-bottom: 72px;
+    }
+}
+
+@media (max-width: 599px) {
+    .ma-group-v {
+        padding: 0;
+    }
+    .ma-cards-v {
+        padding: 4px 0 10px;
+    }
+    .ma-cards-v > .card-outer {
+        margin: 5px 2px;
+    }
 }
 
 .ma-group-v,
@@ -53,6 +225,7 @@ html, body, #root {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-width: 0;
     padding: 0 6px;
 }
 
@@ -86,22 +259,23 @@ html, body, #root {
     align-items: center;
     gap: 8px;
     padding: 4px 14px;
-    background: #21222A;
-    border: 1px solid rgba(222, 235, 248, 0.2);
+    background: #1a1b22;
+    border: 1px solid rgba(222, 235, 248, 0.1);
     border-radius: 20px;
     position: relative;
     z-index: 1;
-    color: #DEEBF8;
+    color: rgba(222, 235, 248, 0.5);
     font-family: 'Titillium Web', sans-serif;
     font-size: 1rem;
     letter-spacing: 4px;
-    transition: border-color 0.15s, background 0.15s;
+    transition: border-color 0.15s, background 0.15s, color 0.15s;
     user-select: none;
 }
 
 .nav-bar-ma-pill:hover {
-    border-color: rgba(222, 235, 248, 0.45);
-    background: #2c2d38;
+    border-color: rgba(222, 235, 248, 0.25);
+    background: #21222A;
+    color: rgba(222, 235, 248, 0.75);
 }
 
 .rerandomize-icon {
@@ -179,7 +353,7 @@ html, body, #root {
     flex-direction: column;
     flex: 1;
     align-items: stretch;
-    padding: 4px 8px 10px;
+    padding: 4px 0px 10px;
 }
 
 .ma-cards-v > .card-outer {
@@ -206,17 +380,17 @@ html, body, #root {
         #ddd 80%,
         #aaa 95%
     );
-    margin: 10px 10px;
+    margin: 5px 5px;
     padding: 5px;
     flex: 1;
     box-shadow: 1px 1px 8px 5px rgba( 0, 0, 0, .8), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.card-outer:hover {
+/* .card-outer:hover {
     transform: translateY(-4px);
     box-shadow: 2px 6px 18px 6px rgba(0, 0, 0, 0.9), 0 10px 28px 0 rgba(0, 0, 0, 0.25);
-}
+} */
 
 .card-inner {
     display: flex;
@@ -273,19 +447,6 @@ html, body, #root {
     text-align: center;
 }
 
-/* Nav buttons */
-.nav-btn {
-    background: #515368;
-    color: #DEEBF8;
-    border: 1px solid rgba(97, 218, 251, 0.25);
-    border-radius: 20px;
-    padding: 6px 14px;
-    margin-left: 10px;
-    cursor: pointer;
-    font-family: 'Titillium Web', sans-serif;
-    font-size: 0.9rem;
-}
-.nav-btn:hover { background: #6b6e8a; }
 
 /* Modal */
 .modal-overlay {
