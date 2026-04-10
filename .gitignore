@@ -9,6 +9,7 @@
 /coverage
 
 # production
+/static
 /build
 
 # misc
@@ -24,3 +25,7 @@ yarn-error.log*
 
 # ide
 .vscode
+.idea
+
+# claude
+.claude
