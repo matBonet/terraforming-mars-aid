@@ -2,6 +2,7 @@ import { useState } from "react";
 import NavBar from "./components/NavBar";
 import MilestonesAwards from "./components/MilestonesAwards";
 import SettingsModal from "./components/SettingsModal";
+import HelpModal from "./components/HelpModal";
 import useStore, { REQUIRED } from "./store";
 import { usePlatform } from "./hooks/usePlatform";
 import milestonesData from "./ma-data/milestones.json";
@@ -18,6 +19,7 @@ function getProperties(obj, arr) {
 function App() {
   const { isHorizontal } = usePlatform();
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
 
   const { draw, availableMilestones, availableAwards, rerandomize, error } =
     useStore();
@@ -51,8 +53,10 @@ function App() {
       <NavBar
         onRerandomize={rerandomize}
         onOpenSettings={() => setSettingsOpen(true)}
+        onOpenHelp={() => setHelpOpen(true)}
       />
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
+      {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} />}
     </div>
   );
 }

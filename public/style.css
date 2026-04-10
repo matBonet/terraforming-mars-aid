@@ -143,18 +143,8 @@ html, body, #root {
     white-space: nowrap;
 }
 
-.floating-btn:hover {
-    background: rgba(222, 235, 248, 0.1);
-    color: #DEEBF8;
-}
-
 .floating-btn--primary {
     color: #DEEBF8;
-}
-
-.floating-btn--primary:hover {
-    background: rgba(97, 218, 251, 0.15);
-    color: #61DAFB;
 }
 
 .floating-btn-icon {
@@ -164,8 +154,20 @@ html, body, #root {
     transition: transform 0.3s ease;
 }
 
-.floating-btn--primary:hover .floating-btn-icon {
-    transform: rotate(180deg);
+@media (hover: hover) {
+    .floating-btn:hover {
+        background: rgba(222, 235, 248, 0.1);
+        color: #DEEBF8;
+    }
+
+    .floating-btn--primary:hover {
+        background: rgba(97, 218, 251, 0.15);
+        color: #61DAFB;
+    }
+
+    .floating-btn--primary:hover .floating-btn-icon {
+        transform: rotate(180deg);
+    }
 }
 
 .floating-btn-label {
@@ -187,6 +189,24 @@ html, body, #root {
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(222, 235, 248, 0.08);
     z-index: 50;
+}
+
+.mobile-top-bar-help-btn {
+    position: absolute;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(222, 235, 248, 0.22);
+    background: rgba(222, 235, 248, 0.08);
+    color: rgba(222, 235, 248, 0.7);
+    font-size: 1rem;
+    font-family: 'Titillium Web', sans-serif;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .mobile-top-bar-title {
@@ -528,6 +548,12 @@ html, body, #root {
     color: #fff;
 }
 
+@media (hover: none) and (pointer: coarse) {
+    .modal-header {
+        display: none;
+    }
+}
+
 .modal-sections {
     display: flex;
     flex-direction: column;
@@ -597,6 +623,7 @@ html, body, #root {
     background: rgba(255, 255, 255, 0.15);
 }
 
+
 .modal-section-items {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -639,9 +666,11 @@ html, body, #root {
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-.toggle-btn:hover {
-    filter: brightness(1.15);
-    transform: translateY(-2px);
+@media (hover: hover) {
+    .toggle-btn:hover {
+        filter: brightness(1.15);
+        transform: translateY(-2px);
+    }
 }
 
 /* General settings radio toggles */
@@ -660,8 +689,10 @@ html, body, #root {
     transition: background 0.15s;
 }
 
-.settings-toggle:hover {
-    background: rgba(255, 255, 255, 0.05);
+@media (hover: hover) {
+    .settings-toggle:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
 }
 
 .settings-toggle-dot {
@@ -705,9 +736,11 @@ html, body, #root {
     filter: grayscale(0.6);
 }
 
-.expansion-toggle-btn:hover {
-    opacity: 0.75;
-    filter: none;
+@media (hover: hover) {
+    .expansion-toggle-btn:hover {
+        opacity: 0.75;
+        filter: none;
+    }
 }
 
 /* ── Mobile action sheet ──────────────────────────────────── */
@@ -816,6 +849,46 @@ html, body, #root {
     color: #f0b8b8;
 }
 
+
+/* ── Help modal ───────────────────────────────────────────── */
+.help-text {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(222, 235, 248, 0.75);
+    line-height: 1.6;
+    margin: 8px 0 0;
+}
+
+.help-list {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.95rem;
+    color: rgba(222, 235, 248, 0.75);
+    line-height: 1.8;
+    margin: 8px 0 0;
+    padding-left: 20px;
+}
+
+.help-list strong {
+    color: #DEEBF8;
+}
+
+.help-disclaimer {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.78rem;
+    color: rgba(222, 235, 248, 0.35);
+    margin: 8px 0 0;
+}
+
+.help-link {
+    color: #61DAFB;
+    text-decoration: none;
+}
+
+@media (hover: hover) {
+    .help-link:hover {
+        text-decoration: underline;
+    }
+}
 
 /* Too-few-options warning */
 .too-few-warning {

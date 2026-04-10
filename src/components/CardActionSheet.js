@@ -1,4 +1,8 @@
+import { useBackButton } from '../hooks/useBackButton';
+
 function CardActionSheet({ title, description, onReroll, onExclude, onClose }) {
+  useBackButton(onClose);
+
   return (
     <>
       <div className="action-sheet-backdrop" onClick={onClose} />

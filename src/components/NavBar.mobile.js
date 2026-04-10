@@ -1,8 +1,9 @@
-function NavBarMobile({ onRerandomize, onOpenSettings }) {
+function NavBarMobile({ onRerandomize, onOpenSettings, onOpenHelp }) {
 	return (
 		<>
 			<header className="mobile-top-bar">
 				<span className="mobile-top-bar-title">M&amp;A Randomizer</span>
+				<button className="mobile-top-bar-help-btn" onClick={onOpenHelp} title="Help">?</button>
 			</header>
 
 			<div className="floating-bar">

@@ -1,4 +1,5 @@
 import useStore, { REQUIRED } from '../store';
+import { useBackButton } from '../hooks/useBackButton';
 import milestonesData from '../ma-data/milestones.json';
 import awardsData from '../ma-data/awards.json';
 import ExpansionIcon from './ExpansionIcon';
@@ -19,6 +20,7 @@ const awardsBySource = Object.fromEntries(
 );
 
 function SettingsModal({ onClose }) {
+  useBackButton(onClose);
   const {
     availableMilestones, availableAwards, error, showDescriptions,
     setAvailable, setShowDescriptions,

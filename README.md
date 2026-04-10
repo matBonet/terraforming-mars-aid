@@ -71,3 +71,5 @@ flowchart LR
 # About
 
 Built with React, Zustand, and bare CSS.
+
+> Unaffiliated with FryxGames or Terraforming Mars.
