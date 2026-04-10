@@ -1,7 +1,23 @@
-import { useBackButton } from '../hooks/useBackButton';
+import { useBackButton } from "../hooks/useBackButton";
+import IsoCube, { CUBE_COLORS } from "./IsoCube";
 
-function CardActionSheet({ title, description, onReroll, onExclude, onClose }) {
+function CardActionSheet({
+  title,
+  description,
+  marker,
+  isGreyed,
+  onSetMarker,
+  onClearMarker,
+  onReroll,
+  onExclude,
+  onClose,
+}) {
   useBackButton(onClose);
+
+  function handleSetMarker(color) {
+    onSetMarker(color);
+    onClose();
+  }
 
   return (
     <>
@@ -10,17 +26,56 @@ function CardActionSheet({ title, description, onReroll, onExclude, onClose }) {
         <div className="action-sheet-main">
           <div className="action-sheet-handle" />
           <p className="action-sheet-card-title">{title}</p>
-          {description && <p className="action-sheet-card-description">{description}</p>}
+          {description && (
+            <p className="action-sheet-card-description">{description}</p>
+          )}
+
+          {/* Marker section */}
+          <div className="action-sheet-marker-section">
+            {marker ? (
+              <div className="action-sheet-marker-claimed">
+                <IsoCube color={marker} size={32} />
+                <button
+                  className="action-sheet-unclaim-btn"
+                  onClick={onClearMarker}
+                >
+                  Remove marker
+                </button>
+              </div>
+            ) : isGreyed ? (
+              <p className="action-sheet-marker-limit">3 already claimed</p>
+            ) : (
+              <div className="action-sheet-marker-row">
+                {CUBE_COLORS.map((color) => (
+                  <button
+                    key={color}
+                    className="action-sheet-marker-btn"
+                    onClick={() => handleSetMarker(color)}
+                    title={`Claim with ${color} cube`}
+                  >
+                    <IsoCube color={color} size={28} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
           <button
             className="action-sheet-btn action-sheet-btn--reroll"
-            onClick={() => { onReroll(); onClose(); }}
+            onClick={() => {
+              onReroll();
+              onClose();
+            }}
           >
             <span className="action-sheet-btn-icon">&#x21BB;</span>
             Reroll
           </button>
           <button
             className="action-sheet-btn action-sheet-btn--exclude"
-            onClick={() => { onExclude(); onClose(); }}
+            onClick={() => {
+              onExclude();
+              onClose();
+            }}
           >
             <span className="action-sheet-btn-icon">&#x2715;</span>
             Exclude &amp; Reroll

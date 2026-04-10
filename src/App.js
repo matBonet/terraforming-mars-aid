@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import MilestonesAwards from "./components/MilestonesAwards";
 import SettingsModal from "./components/SettingsModal";
 import HelpModal from "./components/HelpModal";
+import ConfirmModal from "./components/ConfirmModal";
 import useStore, { REQUIRED } from "./store";
 import { usePlatform } from "./hooks/usePlatform";
 import milestonesData from "./ma-data/milestones.json";
@@ -21,7 +22,7 @@ function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
 
-  const { draw, availableMilestones, availableAwards, rerandomize, error } =
+  const { draw, availableMilestones, availableAwards, rerandomize, error, pendingAction, requestAction } =
     useStore();
 
   const enoughMilestones = availableMilestones.length >= REQUIRED;
@@ -51,12 +52,13 @@ function App() {
         warning={synergyError}
       />
       <NavBar
-        onRerandomize={rerandomize}
+        onRerandomize={() => requestAction(rerandomize)}
         onOpenSettings={() => setSettingsOpen(true)}
         onOpenHelp={() => setHelpOpen(true)}
       />
       {settingsOpen && <SettingsModal onClose={() => setSettingsOpen(false)} />}
       {helpOpen && <HelpModal onClose={() => setHelpOpen(false)} />}
+      {pendingAction && <ConfirmModal />}
     </div>
   );
 }

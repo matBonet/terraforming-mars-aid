@@ -1,5 +1,6 @@
 import useStore from "../store";
 import ExpansionIcon from "./ExpansionIcon";
+import IsoCube, { CUBE_COLORS } from "./IsoCube";
 
 const ICON_SLUGS = new Set([
   "banker",
@@ -56,11 +57,21 @@ const ICON_SLUGS = new Set([
 function CardDesktop({ slug, type, title, description, source }) {
   const {
     showDescriptions,
+    draw,
+    markers,
+    setMarker,
+    clearMarker,
+    requestAction,
     removeMilestone,
     removeAward,
     rerollMilestone,
     rerollAward,
   } = useStore();
+
+  const claimedCount = draw[type].filter((s) => markers[s]).length;
+  const marker = markers[slug];
+  const isGreyed = !marker && claimedCount >= 3;
+
   const onRemove =
     type === "milestones"
       ? () => removeMilestone(slug)
@@ -71,13 +82,17 @@ function CardDesktop({ slug, type, title, description, source }) {
       : () => rerollAward(slug);
 
   return (
-    <div className="card-outer">
-      <button className="card-reroll-btn" onClick={onReroll} title="Re-roll">
+    <div className={"card-outer" + (isGreyed ? " card-outer--greyed" : "")}>
+      <button
+        className="card-reroll-btn"
+        onClick={() => requestAction(onReroll)}
+        title="Re-roll"
+      >
         &#x21BB;
       </button>
       <button
         className="card-remove-btn"
-        onClick={onRemove}
+        onClick={() => requestAction(onRemove)}
         title="Exclude and re-roll"
       >
         &#x2715;
@@ -96,6 +111,28 @@ function CardDesktop({ slug, type, title, description, source }) {
           <p className="ma-title">{title}</p>
         )}
         {showDescriptions && <p className="ma-description">{description}</p>}
+        <div className="card-marker-row">
+          {marker ? (
+            <button
+              className="card-marker-btn card-marker-btn--claimed"
+              onClick={() => clearMarker(slug)}
+              title="Remove marker"
+            >
+              <IsoCube color={marker} size={35} />
+            </button>
+          ) : !isGreyed ? (
+            CUBE_COLORS.map((color) => (
+              <button
+                key={color}
+                className="card-marker-btn"
+                onClick={() => setMarker(slug, color, type)}
+                title={`Claim with ${color} cube`}
+              >
+                <IsoCube color={color} size={25} />
+              </button>
+            ))
+          ) : null}
+        </div>
       </div>
     </div>
   );

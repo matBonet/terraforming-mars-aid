@@ -4,9 +4,9 @@ import Card from "./Card";
 
 function MilestonesAwards({ type, cards, orient, tooFew, warning }) {
   const { isMobile } = usePlatform();
-  const { rerandomizeMilestones, rerandomizeAwards } = useStore();
-  const onRerandomize =
-    type === "milestones" ? rerandomizeMilestones : rerandomizeAwards;
+  const { rerandomizeMilestones, rerandomizeAwards, requestAction } = useStore();
+  const rerandomize = type === "milestones" ? rerandomizeMilestones : rerandomizeAwards;
+  const onRerandomize = () => requestAction(rerandomize);
   const blocked = tooFew || !!warning;
 
   return (
