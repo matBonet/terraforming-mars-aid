@@ -98,9 +98,9 @@ html, body, #root {
     box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.6);
 }
 
-/* ── Mobile floating pill (default: hidden) ───────────────── */
+/* ── Mobile floating pill ─────────────────────────────────── */
 .floating-bar {
-    display: none;
+    display: flex;
     position: fixed;
     bottom: 20px;
     left: 50%;
@@ -171,10 +171,30 @@ html, body, #root {
     line-height: 1;
 }
 
-/* ── Responsive swap ──────────────────────────────────────── */
-@media (hover: none) and (pointer: coarse) {
-    .top-bar { display: none; }
-    .floating-bar { display: flex; }
+/* ── Mobile top bar ───────────────────────────────────────── */
+.mobile-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(18, 19, 24, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(222, 235, 248, 0.08);
+    z-index: 50;
+}
+
+.mobile-top-bar-title {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(222, 235, 248, 0.75);
+    user-select: none;
 }
 
 .body-ma-v {
@@ -194,11 +214,9 @@ html, body, #root {
     box-sizing: border-box;
 }
 
-@media not all and (hover: none) and (pointer: coarse) {
-    .body-ma-v,
-    .body-ma-h {
-        padding-top: 58px;
-    }
+.body-ma-v,
+.body-ma-h {
+    padding-top: 58px;
 }
 
 @media (hover: none) and (pointer: coarse) {
