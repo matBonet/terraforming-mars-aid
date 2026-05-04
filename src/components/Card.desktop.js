@@ -4,55 +4,22 @@ import IsoCube, { CUBE_COLORS } from "./IsoCube";
 import { FaRotateRight, FaXmark } from 'react-icons/fa6';
 
 const ICON_SLUGS = new Set([
-  "banker",
-  "benefactor",
-  "botanist",
-  "builder",
-  "celebrity",
-  "coastguard",
-  "contractor",
-  "cultivator",
-  "diversifier",
-  "electrician",
-  "energizer",
-  "engineer",
-  "estate_dealer",
-  "farmer",
-  "forester",
-  "founder",
-  "fundraiser",
-  "gardener",
-  "generalist",
-  "geologist",
-  "highlander",
-  "hoverlord",
-  "investor",
-  "landlord",
-  "landscaper",
-  "legend",
-  "magnate",
-  "mayor",
-  "metallurgist",
-  "metropolist",
-  "miner",
-  "mogul",
-  "pioneer",
-  "planner",
-  "promoter",
-  "researcher",
-  "rim_settler",
-  "scientist",
-  "space_baron",
-  "spacefarer",
-  "suburbian",
-  "tactician",
-  "terraformer",
-  "thermalist",
-  "trader",
-  "traveller",
-  "tycoon",
-  "venuphile",
-  "zoologist",
+  "_administrator",
+  "_banker",
+  "_benefactor",
+  "_biologist",
+  "_botanist",
+  "_celebrity",
+  "_collector",
+  "_constructor",
+  "_cultivator",
+  "_electrician",
+  "_estate_dealer",
+  "_excentric",
+  "_forecaster",
+  "_founder",
+  "_highlander",
+  "_landscaper",
 ]);
 
 function CardDesktop({ slug, type, title, description, source }) {
@@ -102,15 +69,14 @@ function CardDesktop({ slug, type, title, description, source }) {
         <ExpansionIcon source={source} />
       </div>
       <div className="card-inner">
-        {ICON_SLUGS.has(slug) ? (
+        {ICON_SLUGS.has(slug) && (
           <img
-            src={process.env.PUBLIC_URL + "/ma-icons/" + slug + ".png"}
+            src={process.env.PUBLIC_URL + "/ma-icons/" + slug.slice(1) + ".svg"}
             className="ma-logo"
             alt=""
           />
-        ) : (
-          <p className="ma-title">{title}</p>
         )}
+        <p className="ma-title">{title}</p>
         {showDescriptions && <p className="ma-description">{description}</p>}
         <div className="card-marker-row">
           {marker ? (
